@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<robot name="wall_cabinet" xmlns:xacro="http://wiki.ros.org/xacro">
+
+</robot>

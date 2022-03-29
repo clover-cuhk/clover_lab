@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot name="base_cabinet" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:arg name="prefix" default="base_cabinet"/>
+  <xacro:property name="prefix" value="$(arg prefix)"/>
+
+  <!-- Is the robot to be used with a simulator or control software -->
+  <!-- Supported: none, gazebo, mujoco -->
+  <xacro:arg name="simulator" default="none"/>
+  <xacro:property name="simulator" value="$(arg simulator)"/>
+
+  <xacro:include filename="base_cabinet.xacro"/>
+
+  <xacro:if value="${simulator == 'mujoco'}">
+    <!-- The meshdir to be used by MJCF need not be the same as the URDF -->
+    <mujoco>
+      <compiler meshdir="./meshes" balanceinertia="true" strippath="true" discardvisual="true"/>
+    </mujoco>
+  </xacro:if>
+
+  <xacro:frame prefix="${prefix}"/>
+
+  <!-- The +x direction points from the back of the cabinet to the front -->
+  <!-- Rightmost 1st column -->
+  <xacro:door prefix="${prefix}" name="c1_door" parent="${prefix}_base_link"
+              xyz="${base_xdim/2} ${-base_ydim/2+frame_side_panel_ydim} ${(base_zdim+frame_side_panel_zdim)/2}"
+              hinge="right"/>
+
+  <!-- Rightmost 2nd column -->
+  <xacro:pull_out prefix="${prefix}" name="c2_pull_out" parent="${prefix}_base_link"
+                  xyz="${(base_xdim+thickness)/2} ${base_ydim/2-frame_side_panel_ydim-column_ydim*3.25}
+                       ${(base_zdim+frame_zdim)/2}"/>
+
+  <!-- Rightmost 3rd column -->
+  <xacro:drawer prefix="${prefix}" name="c3_r1_drawer" parent="${prefix}_base_link"
+                xyz="${(base_xdim+drawer_front_panel_xdim)/2} ${base_ydim/2-frame_side_panel_ydim-column_ydim*2.5}
+                     ${(base_zdim-row_zdim)/2+frame_zdim}"/>
+
+  <xacro:drawer prefix="${prefix}" name="c3_r2_drawer" parent="${prefix}_base_link"
+                xyz="${(base_xdim+drawer_front_panel_xdim)/2} ${base_ydim/2-frame_side_panel_ydim-column_ydim*2.5}
+                     ${(base_zdim-row_zdim*3)/2+frame_zdim}"/>
+
+  <xacro:drawer prefix="${prefix}" name="c3_r3_drawer" parent="${prefix}_base_link"
+                xyz="${(base_xdim+drawer_front_panel_xdim)/2} ${base_ydim/2-frame_side_panel_ydim-column_ydim*2.5}
+                     ${(base_zdim-row_zdim*5)/2+frame_zdim}"/>
+
+  <xacro:drawer prefix="${prefix}" name="c3_r4_drawer" parent="${prefix}_base_link"
+                xyz="${(base_xdim+drawer_front_panel_xdim)/2} ${base_ydim/2-frame_side_panel_ydim-column_ydim*2.5}
+                     ${(base_zdim-row_zdim*7)/2+frame_zdim}"/>
+
+  <!-- Rightmost 4th column -->
+  <xacro:door prefix="${prefix}" name="c4_door" parent="${prefix}_base_link"
+              xyz="${base_xdim/2} ${base_ydim/2-frame_side_panel_ydim-column_ydim*2} ${(base_zdim+frame_side_panel_zdim)/2}"
+              hinge="right"/>
+
+  <!-- Rightmost 5th column -->
+  <xacro:door prefix="${prefix}" name="c5_door" parent="${prefix}_base_link"
+              xyz="${base_xdim/2} ${base_ydim/2-frame_side_panel_ydim} ${(base_zdim+frame_side_panel_zdim)/2}"
+              hinge="left"/>
+
+</robot>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>clover_lab</name>
+  <version>0.0.1</version>
+  <description>Environment description of CLOVER Lab CUHK</description>
+
+  <author>Zhipeng Dong</author>
+  <maintainer email="zhipengdongneu@gmail.com">Zhipeng Dong</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">https://docs.clover_lab.com/</url>
+  <url type="repository">https://github.com/clover-cuhk/clover_lab</url>
+  <url type="bugtracker">https://github.com/clover-cuhk/clover_lab/issues</url>
+  <url type="wiki">https://wiki.ros.org/clover_lab</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>
