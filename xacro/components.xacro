@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<robot name="components" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:include filename="materials.xacro"/>
+
+  <xacro:property name="M_PI" value="3.1415926535897931"/>
+
+  <!-- https://www.ikea.com.hk/en/products/knobs-and-handles/knobs-and-handles/bagganas-art-70338423 -->
+  <xacro:property name="handle_mass" value="0.09"/>
+
+  <xacro:macro name="box_inertia" params="mass xdim ydim zdim">
+    <inertia ixx="${mass * (ydim * ydim + zdim * zdim) / 12}" ixy="0" ixz="0"
+             iyy="${mass * (xdim * xdim + zdim * zdim) / 12}" iyz="0"
+             izz="${mass * (ydim * ydim + xdim * xdim) / 12}"/>
+  </xacro:macro>
+
+  <xacro:macro name="box_link" params="prefix link_name mass xdim ydim zdim material hinge='none'">
+    <link name="${prefix}_${link_name}">
+      <visual>
+        <xacro:if value="${hinge == 'right'}">
+          <origin xyz="${xdim/2} ${ydim/2} 0"/>
+        </xacro:if>
+        <xacro:if value="${hinge == 'left'}">
+          <origin xyz="${xdim/2} -${ydim/2} 0"/>
+        </xacro:if>
+        <xacro:if value="${hinge == 'none'}">
+          <origin xyz="0 0 0"/>
+        </xacro:if>
+        <geometry>
+          <box size="${xdim} ${ydim} ${zdim}"/>
+        </geometry>
+        <material name="${material}"/>
+      </visual>
+
+      <collision>
+        <xacro:if value="${hinge == 'right'}">
+          <origin xyz="${xdim/2} ${ydim/2} 0"/>
+        </xacro:if>
+        <xacro:if value="${hinge == 'left'}">
+          <origin xyz="${xdim/2} -${ydim/2} 0"/>
+        </xacro:if>
+        <xacro:if value="${hinge == 'none'}">
+          <origin xyz="0 0 0"/>
+        </xacro:if>
+        <geometry>
+          <box size="${xdim} ${ydim} ${zdim}"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <xacro:if value="${hinge == 'right'}">
+          <origin xyz="${xdim/2} ${ydim/2} 0"/>
+        </xacro:if>
+        <xacro:if value="${hinge == 'left'}">
+          <origin xyz="${xdim/2} -${ydim/2} 0"/>
+        </xacro:if>
+        <xacro:if value="${hinge == 'none'}">
+          <origin xyz="0 0 0"/>
+        </xacro:if>
+        <mass value="${mass}"/>
+        <xacro:box_inertia mass="${mass}" xdim="${xdim}" ydim="${ydim}" zdim="${zdim}"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <!--  <xacro:macro name="handle" params="prefix parent *origin">-->
+  <!--    <link name="${prefix}_handle">-->
+  <!--      <visual>-->
+  <!--        <origin xyz="0 0 0" rpy="0 0 0"/>-->
+  <!--        &lt;!&ndash;        <geometry>&ndash;&gt;-->
+  <!--        &lt;!&ndash;          <box size="${worktop_ydim worktop_xdim worktop_zdim}"/>&ndash;&gt;-->
+  <!--        &lt;!&ndash;        </geometry>&ndash;&gt;-->
+  <!--        <material name="Black"/>-->
+  <!--      </visual>-->
+
+  <!--      <collision>-->
+  <!--        <origin xyz="0 0 0" rpy="0 0 0"/>-->
+  <!--        &lt;!&ndash;        <geometry>&ndash;&gt;-->
+  <!--        &lt;!&ndash;          <box size="${worktop_ydim worktop_xdim worktop_zdim}"/>&ndash;&gt;-->
+  <!--        &lt;!&ndash;        </geometry>&ndash;&gt;-->
+  <!--      </collision>-->
+
+  <!--      <inertial>-->
+  <!--        <mass value="${handle_mass}"/>-->
+  <!--        &lt;!&ndash;        <origin xyz="0 0 0"/>&ndash;&gt;-->
+  <!--        &lt;!&ndash;        <xacro:box_inertia mass="${worktop_mass}" ydim="${worktop_ydim}" xdim="${worktop_xdim}"&ndash;&gt;-->
+  <!--        &lt;!&ndash;                           zdim="${worktop_zdim}"/>&ndash;&gt;-->
+  <!--      </inertial>-->
+  <!--    </link>-->
+
+  <!--    <joint name="{prefix}_handle_joint" type="fixed">-->
+  <!--      <parent link="${parent}"/>-->
+  <!--      <child link="{prefix}_handle_link"/>-->
+  <!--      <xacro:insert_block name="origin"/>-->
+  <!--    </joint>-->
+
+  <!--  </xacro:macro>-->
+
+  <xacro:macro name="door" params="prefix name parent xyz mass xdim ydim zdim hinge">
+    <xacro:box_link prefix="${prefix}" link_name="${name}" mass="${mass}"
+                    xdim="${xdim}" ydim="${ydim}" zdim="${zdim}"
+                    material="Oak" hinge="${hinge}"/>
+
+    <joint name="${prefix}_${name}_joint" type="revolute">
+      <parent link="${parent}"/>
+      <child link="${prefix}_${name}"/>
+      <limit effort="10" lower="0" upper="${M_PI / 2}" velocity="1"/>
+      <dynamics damping="100" friction="0.1"/>
+      <origin xyz="${xyz}"/>
+      <xacro:if value="${hinge == 'right'}">
+        <axis xyz="0 0 -1"/>
+      </xacro:if>
+      <xacro:unless value="${hinge == 'right'}">
+        <axis xyz="0 0 1"/>
+      </xacro:unless>
+    </joint>
+  </xacro:macro>
+
+</robot>

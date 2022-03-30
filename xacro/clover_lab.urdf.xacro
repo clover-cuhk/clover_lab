@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot name="clover_lab" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!-- Is the robot to be used with a simulator or control software -->
+  <!-- Supported: none, gazebo, mujoco -->
+  <xacro:arg name="simulator" default="none"/>
+  <xacro:property name="simulator" value="$(arg simulator)"/>
+
+  <xacro:include filename="components.xacro"/>
+
+  <xacro:include filename="base_cabinet.xacro"/>
+  <xacro:include filename="wall_cabinet.xacro"/>
+
+  <xacro:if value="${simulator == 'mujoco'}">
+    <!-- The meshdir to be used by MJCF need not be the same as the URDF -->
+    <mujoco>
+      <compiler meshdir="./meshes" balanceinertia="true" strippath="true" discardvisual="true"/>
+    </mujoco>
+  </xacro:if>
+
+  <xacro:base_cabinet prefix="base_cabinet"/>
+  <xacro:wall_cabinet prefix="wall_cabinet"/>
+
+  <xacro:unless value="${simulator == 'pinocchio'}">
+    <link name="world"/>
+    <joint name="base_cabinet_reference" type="fixed">
+      <origin xyz="-2.7 0.2 ${base_zdim/2}" rpy="0 0 0"/>
+      <parent link="world"/>
+      <child link="bc_frame_base_link"/>
+    </joint>
+
+    <joint name="wall_cabinet_reference" type="fixed">
+      <origin xyz="-2.7 0.4 ${1.64+0.81/2}" rpy="0 0 0"/>
+      <parent link="world"/>
+      <child link="wc_frame_back_panel"/>
+    </joint>
+  </xacro:unless>
+
+</robot>

@@ -1,47 +1,32 @@
 <?xml version="1.0"?>
 <robot name="base_cabinet" xmlns:xacro="http://wiki.ros.org/xacro">
-  <material name="White">
-    <color rgba="0.9 0.9 0.9 1.0"/>
-  </material>
-  <material name="Glass">
-    <color rgba="0.9 0.9 0.9 0.9"/>
-  </material>
-  <material name="Black">
-    <color rgba="0.3 0.3 0.3 1.0"/>
-  </material>
-  <material name="Oak">
-    <color rgba="0.89 0.81 0.69 1.0"/>
-  </material>
-
-  <xacro:property name="M_PI" value="3.1415926535897931"/>
 
   <!-- Using meter, kg -->
-
   <xacro:property name="base_xdim" value="0.6"/>
   <xacro:property name="base_ydim" value="1.8"/>
   <xacro:property name="base_zdim" value="0.08"/>
   <xacro:property name="base_mass" value="20"/>
 
   <!-- Frame refers to the main part of the cabinet -->
-  <xacro:property name="frame_xdim" value="0.6"/>
-  <xacro:property name="frame_ydim" value="1.8"/>
-  <xacro:property name="frame_zdim" value="0.8"/>
+  <xacro:property name="bc_frame_xdim" value="0.6"/>
+  <xacro:property name="bc_frame_ydim" value="1.8"/>
+  <xacro:property name="bc_frame_zdim" value="0.8"/>
 
   <xacro:property name="column_ydim" value="0.4"/>
-  <xacro:property name="row_zdim" value="${frame_zdim/4}"/>
+  <xacro:property name="row_zdim" value="${bc_frame_zdim/4}"/>
 
   <xacro:property name="thickness" value="0.016"/>
   <xacro:property name="tolerance" value="0.004"/>
 
-  <xacro:property name="frame_back_panel_xdim" value="${thickness}"/>
-  <xacro:property name="frame_back_panel_ydim" value="${frame_ydim}"/>
-  <xacro:property name="frame_back_panel_zdim" value="${frame_zdim}"/>
-  <xacro:property name="frame_back_panel_mass" value="20"/>
+  <xacro:property name="bc_frame_back_panel_xdim" value="${thickness}"/>
+  <xacro:property name="bc_frame_back_panel_ydim" value="${bc_frame_ydim}"/>
+  <xacro:property name="bc_frame_back_panel_zdim" value="${bc_frame_zdim}"/>
+  <xacro:property name="bc_frame_back_panel_mass" value="20"/>
 
-  <xacro:property name="frame_side_panel_xdim" value="${frame_xdim}"/>
-  <xacro:property name="frame_side_panel_ydim" value="${thickness}"/>
-  <xacro:property name="frame_side_panel_zdim" value="${frame_zdim}"/>
-  <xacro:property name="frame_side_panel_mass" value="5"/>
+  <xacro:property name="bc_frame_side_panel_xdim" value="${bc_frame_xdim}"/>
+  <xacro:property name="bc_frame_side_panel_ydim" value="${thickness}"/>
+  <xacro:property name="bc_frame_side_panel_zdim" value="${bc_frame_zdim}"/>
+  <xacro:property name="bc_frame_side_panel_mass" value="5"/>
 
   <!-- https://www.ikea.com.hk/zh/products/kitchen-worktops/kitchen-worktops/lilltrask-art-40280659-->
   <xacro:property name="worktop_xdim" value="0.635"/>
@@ -49,13 +34,10 @@
   <xacro:property name="worktop_zdim" value="0.028"/>
   <xacro:property name="worktop_mass" value="20.65"/>
 
-  <!-- https://www.ikea.com.hk/en/products/knobs-and-handles/knobs-and-handles/bagganas-art-70338423 -->
-  <xacro:property name="handle_mass" value="0.09"/>
-
   <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/enhet-art-90481556 -->
   <xacro:property name="door_xdim" value="${thickness}"/>
   <xacro:property name="door_ydim" value="${column_ydim-tolerance}"/>
-  <xacro:property name="door_zdim" value="${frame_zdim-tolerance}"/>
+  <xacro:property name="door_zdim" value="${bc_frame_zdim-tolerance}"/>
   <xacro:property name="door_mass" value="3.31"/>
 
   <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/enhet-art-30481559 -->
@@ -64,7 +46,7 @@
   <xacro:property name="drawer_front_panel_zdim" value="${row_zdim-tolerance}"/>
   <xacro:property name="drawer_front_panel_mass" value="0.75"/>
 
-  <!-- Drawer interior, frame size: X60cm Y40cm Z20cm -->
+  <!-- Drawer interior, bc_frame size: X60cm Y40cm Z20cm -->
   <!-- https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-70271111-->
   <xacro:property name="drawer_interior_xdim" value="0.542"/>
   <xacro:property name="drawer_interior_ydim" value="0.364"/>
@@ -93,116 +75,6 @@
 
   <!-- https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-80297276-->
 
-  <xacro:macro name="box_inertia" params="mass xdim ydim zdim">
-    <inertia ixx="${mass * (ydim * ydim + zdim * zdim) / 12}" ixy="0" ixz="0"
-             iyy="${mass * (xdim * xdim + zdim * zdim) / 12}" iyz="0"
-             izz="${mass * (ydim * ydim + xdim * xdim) / 12}"/>
-  </xacro:macro>
-
-  <xacro:macro name="box_link" params="prefix link_name mass xdim ydim zdim material hinge='none'">
-    <link name="${prefix}_${link_name}">
-      <visual>
-        <xacro:if value="${hinge == 'right'}">
-          <origin xyz="${xdim/2} ${ydim/2} 0"/>
-        </xacro:if>
-        <xacro:if value="${hinge == 'left'}">
-          <origin xyz="${xdim/2} -${ydim/2} 0"/>
-        </xacro:if>
-        <xacro:if value="${hinge == 'none'}">
-          <origin xyz="0 0 0"/>
-        </xacro:if>
-        <geometry>
-          <box size="${xdim} ${ydim} ${zdim}"/>
-        </geometry>
-        <material name="${material}"/>
-      </visual>
-
-      <collision>
-        <xacro:if value="${hinge == 'right'}">
-          <origin xyz="${xdim/2} ${ydim/2} 0"/>
-        </xacro:if>
-        <xacro:if value="${hinge == 'left'}">
-          <origin xyz="${xdim/2} -${ydim/2} 0"/>
-        </xacro:if>
-        <xacro:if value="${hinge == 'none'}">
-          <origin xyz="0 0 0"/>
-        </xacro:if>
-        <geometry>
-          <box size="${xdim} ${ydim} ${zdim}"/>
-        </geometry>
-      </collision>
-
-      <inertial>
-        <xacro:if value="${hinge == 'right'}">
-          <origin xyz="${xdim/2} ${ydim/2} 0"/>
-        </xacro:if>
-        <xacro:if value="${hinge == 'left'}">
-          <origin xyz="${xdim/2} -${ydim/2} 0"/>
-        </xacro:if>
-        <xacro:if value="${hinge == 'none'}">
-          <origin xyz="0 0 0"/>
-        </xacro:if>
-        <mass value="${mass}"/>
-        <xacro:box_inertia mass="${mass}" xdim="${xdim}" ydim="${ydim}" zdim="${zdim}"/>
-      </inertial>
-    </link>
-  </xacro:macro>
-
-  <!-- Components -->
-
-  <!--  <xacro:macro name="handle" params="prefix parent *origin">-->
-  <!--    <link name="${prefix}_handle">-->
-  <!--      <visual>-->
-  <!--        <origin xyz="0 0 0" rpy="0 0 0"/>-->
-  <!--        &lt;!&ndash;        <geometry>&ndash;&gt;-->
-  <!--        &lt;!&ndash;          <box size="${worktop_ydim worktop_xdim worktop_zdim}"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        </geometry>&ndash;&gt;-->
-  <!--        <material name="Black"/>-->
-  <!--      </visual>-->
-
-  <!--      <collision>-->
-  <!--        <origin xyz="0 0 0" rpy="0 0 0"/>-->
-  <!--        &lt;!&ndash;        <geometry>&ndash;&gt;-->
-  <!--        &lt;!&ndash;          <box size="${worktop_ydim worktop_xdim worktop_zdim}"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        </geometry>&ndash;&gt;-->
-  <!--      </collision>-->
-
-  <!--      <inertial>-->
-  <!--        <mass value="${handle_mass}"/>-->
-  <!--        &lt;!&ndash;        <origin xyz="0 0 0"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        <xacro:box_inertia mass="${worktop_mass}" ydim="${worktop_ydim}" xdim="${worktop_xdim}"&ndash;&gt;-->
-  <!--        &lt;!&ndash;                           zdim="${worktop_zdim}"/>&ndash;&gt;-->
-  <!--      </inertial>-->
-  <!--    </link>-->
-
-  <!--    <joint name="{prefix}_handle_joint" type="fixed">-->
-  <!--      <parent link="${parent}"/>-->
-  <!--      <child link="{prefix}_handle_link"/>-->
-  <!--      <xacro:insert_block name="origin"/>-->
-  <!--    </joint>-->
-
-  <!--  </xacro:macro>-->
-
-  <xacro:macro name="door" params="prefix name parent xyz hinge">
-    <xacro:box_link prefix="${prefix}" link_name="${name}" mass="${door_mass}"
-                    xdim="${door_xdim}" ydim="${door_ydim}" zdim="${door_zdim}"
-                    material="Oak" hinge="${hinge}"/>
-
-    <joint name="${prefix}_${name}_joint" type="revolute">
-      <parent link="${parent}"/>
-      <child link="${prefix}_${name}"/>
-      <limit effort="10" lower="0" upper="${M_PI / 2}" velocity="1"/>
-      <dynamics damping="100" friction="0.1"/>
-      <origin xyz="${xyz}"/>
-      <xacro:if value="${hinge == 'right'}">
-        <axis xyz="0 0 -1"/>
-      </xacro:if>
-      <xacro:unless value="${hinge == 'right'}">
-        <axis xyz="0 0 1"/>
-      </xacro:unless>
-    </joint>
-  </xacro:macro>
-
   <xacro:macro name="drawer" params="prefix name parent xyz">
     <xacro:box_link prefix="${prefix}" link_name="${name}_front_panel" mass="${drawer_front_panel_mass}"
                     xdim="${drawer_front_panel_xdim}" ydim="${drawer_front_panel_ydim}"
@@ -227,7 +99,7 @@
       <parent link="${prefix}_${name}_front_panel"/>
       <child link="${prefix}_${name}_bottom_panel"/>
       <origin xyz="${(-drawer_front_panel_xdim-drawer_bottom_panel_xdim)/2}
-                    0 ${-drawer_side_panel_zdim/2+drawer_bottom_panel_zdim)}"
+                    0 ${-drawer_side_panel_zdim/2+drawer_bottom_panel_zdim}"
       />
     </joint>
 
@@ -322,50 +194,105 @@
   </xacro:macro>
 
   <!-- Assembles -->
-  <xacro:macro name="frame" params="prefix">
-    <xacro:box_link prefix="${prefix}" link_name="base_link" mass="${base_mass}" xdim="${base_xdim}" ydim="${base_ydim}"
+  <xacro:macro name="bc_frame">
+    <xacro:box_link prefix="bc_frame" link_name="base_link" mass="${base_mass}" xdim="${base_xdim}" ydim="${base_ydim}"
                     zdim="${base_zdim}" material="White"/>
 
-    <xacro:box_link prefix="${prefix}" link_name="frame_left_side_panel" mass="${frame_side_panel_mass}"
-                    xdim="${frame_side_panel_xdim}" ydim="${frame_side_panel_ydim}" zdim="${frame_side_panel_zdim}"
+    <xacro:box_link prefix="bc_frame" link_name="left_side_panel" mass="${bc_frame_side_panel_mass}"
+                    xdim="${bc_frame_side_panel_xdim}" ydim="${bc_frame_side_panel_ydim}"
+                    zdim="${bc_frame_side_panel_zdim}"
                     material="White"/>
 
-    <joint name="${prefix}_frame_left_side_panel_joint" type="fixed">
-      <origin xyz="0 ${(base_ydim-frame_side_panel_ydim)/2} ${(base_zdim+frame_side_panel_zdim)/2}" rpy="0 0 0"/>
-      <parent link="${prefix}_base_link"/>
-      <child link="${prefix}_frame_left_side_panel"/>
+    <joint name="bc_frame_left_side_panel_joint" type="fixed">
+      <origin xyz="0 ${(base_ydim-bc_frame_side_panel_ydim)/2} ${(base_zdim+bc_frame_side_panel_zdim)/2}" rpy="0 0 0"/>
+      <parent link="bc_frame_base_link"/>
+      <child link="bc_frame_left_side_panel"/>
     </joint>
 
-    <xacro:box_link prefix="${prefix}" link_name="frame_right_side_panel" mass="${frame_side_panel_mass}"
-                    xdim="${frame_side_panel_xdim}" ydim="${frame_side_panel_ydim}" zdim="${frame_side_panel_zdim}"
+    <xacro:box_link prefix="bc_frame" link_name="right_side_panel" mass="${bc_frame_side_panel_mass}"
+                    xdim="${bc_frame_side_panel_xdim}" ydim="${bc_frame_side_panel_ydim}"
+                    zdim="${bc_frame_side_panel_zdim}"
                     material="White"/>
 
-    <joint name="${prefix}_frame_right_side_panel_joint" type="fixed">
-      <origin xyz="0 ${(-base_ydim+frame_side_panel_ydim)/2} ${(base_zdim+frame_side_panel_zdim)/2}" rpy="0 0 0"/>
-      <parent link="${prefix}_base_link"/>
-      <child link="${prefix}_frame_right_side_panel"/>
+    <joint name="bc_frame_right_side_panel_joint" type="fixed">
+      <origin xyz="0 ${(-base_ydim+bc_frame_side_panel_ydim)/2} ${(base_zdim+bc_frame_side_panel_zdim)/2}" rpy="0 0 0"/>
+      <parent link="bc_frame_base_link"/>
+      <child link="bc_frame_right_side_panel"/>
     </joint>
 
-    <xacro:box_link prefix="${prefix}" link_name="frame_back_panel" mass="${frame_back_panel_mass}"
-                    xdim="${frame_back_panel_xdim}" ydim="${frame_back_panel_ydim}" zdim="${frame_back_panel_zdim}"
+    <xacro:box_link prefix="bc_frame" link_name="back_panel" mass="${bc_frame_back_panel_mass}"
+                    xdim="${bc_frame_back_panel_xdim}" ydim="${bc_frame_back_panel_ydim}"
+                    zdim="${bc_frame_back_panel_zdim}"
                     material="White"/>
 
-    <joint name="${prefix}_back_panel_joint" type="fixed">
-      <origin xyz="${(-base_xdim+frame_back_panel_xdim)/2} 0 ${(base_zdim+frame_back_panel_zdim)/2}" rpy="0 0 0"/>
-      <parent link="${prefix}_base_link"/>
-      <child link="${prefix}_frame_back_panel"/>
+    <joint name="bc_frame_back_panel_joint" type="fixed">
+      <origin xyz="${(-base_xdim+bc_frame_back_panel_xdim)/2} 0 ${(base_zdim+bc_frame_back_panel_zdim)/2}" rpy="0 0 0"/>
+      <parent link="bc_frame_base_link"/>
+      <child link="bc_frame_back_panel"/>
     </joint>
 
-    <xacro:box_link prefix="${prefix}" link_name="worktop" mass="${worktop_mass}"
+    <xacro:box_link prefix="bc_frame" link_name="worktop" mass="${worktop_mass}"
                     xdim="${worktop_xdim}" ydim="${worktop_ydim}" zdim="${worktop_zdim}"
                     material="White"/>
 
-    <joint name="${prefix}_worktop_joint" type="fixed">
-      <origin xyz="0 0 ${(base_zdim+worktop_zdim)/2+frame_back_panel_zdim}" rpy="0 0 0"/>
-      <parent link="${prefix}_base_link"/>
-      <child link="${prefix}_worktop"/>
+    <joint name="bc_frame_worktop_joint" type="fixed">
+      <origin xyz="0 0 ${(base_zdim+worktop_zdim)/2+bc_frame_back_panel_zdim}" rpy="0 0 0"/>
+      <parent link="bc_frame_base_link"/>
+      <child link="bc_frame_worktop"/>
     </joint>
+  </xacro:macro>
 
+  <xacro:macro name="base_cabinet" params="prefix connected_to:='' xyz:='0 0 0' rpy:='0 0 0'">
+    <xacro:bc_frame/>
+
+    <xacro:unless value="${not connected_to}">
+      <joint name="${prefix}_${connected_to}_joint" type="fixed">
+        <parent link="${connected_to}"/>
+        <child link="bc_frame_base_link"/>
+        <origin rpy="${rpy}" xyz="${xyz}"/>
+      </joint>
+    </xacro:unless>
+
+    <!-- The +x direction points from the back of the cabinet to the front -->
+    <!-- Rightmost 1st column -->
+    <xacro:door prefix="${prefix}" name="c1_door" parent="bc_frame_base_link"
+                xyz="${base_xdim/2} ${-base_ydim/2+bc_frame_side_panel_ydim} ${(base_zdim+bc_frame_side_panel_zdim)/2}"
+                mass="${door_mass}" xdim="${door_xdim}" ydim="${door_ydim}" zdim="${door_zdim}"
+                hinge="right"/>
+
+    <!-- Rightmost 2nd column -->
+    <xacro:pull_out prefix="${prefix}" name="c2_pull_out" parent="bc_frame_base_link"
+                    xyz="${(base_xdim+thickness)/2} ${base_ydim/2-bc_frame_side_panel_ydim-column_ydim*3.25}
+                       ${(base_zdim+bc_frame_zdim)/2}"/>
+
+    <!-- Rightmost 3rd column -->
+    <xacro:drawer prefix="${prefix}" name="c3_r1_drawer" parent="bc_frame_base_link"
+                  xyz="${(base_xdim+drawer_front_panel_xdim)/2} ${base_ydim/2-bc_frame_side_panel_ydim-column_ydim*2.5}
+                     ${(base_zdim-row_zdim)/2+bc_frame_zdim}"/>
+
+    <xacro:drawer prefix="${prefix}" name="c3_r2_drawer" parent="bc_frame_base_link"
+                  xyz="${(base_xdim+drawer_front_panel_xdim)/2} ${base_ydim/2-bc_frame_side_panel_ydim-column_ydim*2.5}
+                     ${(base_zdim-row_zdim*3)/2+bc_frame_zdim}"/>
+
+    <xacro:drawer prefix="${prefix}" name="c3_r3_drawer" parent="bc_frame_base_link"
+                  xyz="${(base_xdim+drawer_front_panel_xdim)/2} ${base_ydim/2-bc_frame_side_panel_ydim-column_ydim*2.5}
+                     ${(base_zdim-row_zdim*5)/2+bc_frame_zdim}"/>
+
+    <xacro:drawer prefix="${prefix}" name="c3_r4_drawer" parent="bc_frame_base_link"
+                  xyz="${(base_xdim+drawer_front_panel_xdim)/2} ${base_ydim/2-bc_frame_side_panel_ydim-column_ydim*2.5}
+                     ${(base_zdim-row_zdim*7)/2+bc_frame_zdim}"/>
+
+    <!-- Rightmost 4th column -->
+    <xacro:door prefix="${prefix}" name="c4_door" parent="bc_frame_base_link"
+                xyz="${base_xdim/2} ${base_ydim/2-bc_frame_side_panel_ydim-column_ydim*2} ${(base_zdim+bc_frame_side_panel_zdim)/2}"
+                mass="${door_mass}" xdim="${door_xdim}" ydim="${door_ydim}" zdim="${door_zdim}"
+                hinge="right"/>
+
+    <!-- Rightmost 5th column -->
+    <xacro:door prefix="${prefix}" name="c5_door" parent="bc_frame_base_link"
+                xyz="${base_xdim/2} ${base_ydim/2-bc_frame_side_panel_ydim} ${(base_zdim+bc_frame_side_panel_zdim)/2}"
+                mass="${door_mass}" xdim="${door_xdim}" ydim="${door_ydim}" zdim="${door_zdim}"
+                hinge="left"/>
   </xacro:macro>
 
 </robot>

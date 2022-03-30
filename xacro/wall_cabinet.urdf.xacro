@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<robot name="base_cabinet" xmlns:xacro="http://wiki.ros.org/xacro">
+<robot name="wall_cabinet" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:arg name="prefix" default="base_cabinet"/>
+  <xacro:arg name="prefix" default="wall_cabinet"/>
   <xacro:property name="prefix" value="$(arg prefix)"/>
 
   <!-- Is the robot to be used with a simulator or control software -->
@@ -11,7 +11,7 @@
 
   <xacro:include filename="components.xacro"/>
 
-  <xacro:include filename="base_cabinet.xacro"/>
+  <xacro:include filename="wall_cabinet.xacro"/>
 
   <xacro:if value="${simulator == 'mujoco'}">
     <!-- The meshdir to be used by MJCF need not be the same as the URDF -->
@@ -20,6 +20,6 @@
     </mujoco>
   </xacro:if>
 
-  <xacro:base_cabinet prefix="${prefix}"/>
+  <xacro:wall_cabinet prefix="${prefix}"/>
 
 </robot>

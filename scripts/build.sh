@@ -1,21 +1,19 @@
 #!/bin/bash
 
-robot=base_cabinet
-
 build_urdf() {
 
   xacro_dir="../xacro"
   urdf_dir="../urdf"
 
   if [ -d $xacro_dir ]; then
-    echo "==== Building: $robot | Simulator: $1 ===="
+    echo "==== Building: $1 | Simulator: $2 ===="
 
-    if [ "$1" == "none" ]; then
-      xacro $xacro_dir/$robot.urdf.xacro simulator:="$1" >$urdf_dir/"$robot".urdf
-      check_urdf $urdf_dir/$robot.urdf
+    if [ "$2" == "none" ]; then
+      xacro $xacro_dir/"$1".urdf.xacro simulator:="$2" >$urdf_dir/"$1".urdf
+      check_urdf $urdf_dir/"$1".urdf
     else
-      xacro $xacro_dir/$robot.urdf.xacro simulator:="$1" >$urdf_dir/"$robot"_"$1".urdf
-      check_urdf $urdf_dir/"$robot"_"$1".urdf
+      xacro $xacro_dir/"$1".urdf.xacro simulator:="$2" >$urdf_dir/"$1"_"$2".urdf
+      check_urdf $urdf_dir/"$1"_"$2".urdf
     fi
 
   else
@@ -32,6 +30,12 @@ if [ "$curr_folder" != "scripts" ]; then
   exit 1
 fi
 
-build_urdf none
+models=("clover_lab" "base_cabinet" "wall_cabinet")
+
+for model in "${models[@]}"; do
+
+  build_urdf "$model" none
+
+done
 
 exit 0
