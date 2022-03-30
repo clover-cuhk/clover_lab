@@ -3,6 +3,9 @@
   <material name="White">
     <color rgba="0.9 0.9 0.9 1.0"/>
   </material>
+  <material name="Glass">
+    <color rgba="0.9 0.9 0.9 0.9"/>
+  </material>
   <material name="Black">
     <color rgba="0.3 0.3 0.3 1.0"/>
   </material>
@@ -56,32 +59,39 @@
   <xacro:property name="door_mass" value="3.31"/>
 
   <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/enhet-art-30481559 -->
-  <xacro:property name="drawer_xdim" value="${frame_xdim-0.021}"/>
-  <xacro:property name="drawer_zdim" value="${row_zdim-tolerance}"/>
-
   <xacro:property name="drawer_front_panel_xdim" value="${thickness}"/>
   <xacro:property name="drawer_front_panel_ydim" value="${column_ydim-tolerance}"/>
-  <xacro:property name="drawer_front_panel_zdim" value="${drawer_zdim}"/>
+  <xacro:property name="drawer_front_panel_zdim" value="${row_zdim-tolerance}"/>
   <xacro:property name="drawer_front_panel_mass" value="0.75"/>
 
-  <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/metod-spr-39216457 -->
-  <xacro:property name="drawer_side_panel_xdim" value="${drawer_xdim}"/>
+  <!-- Drawer interior, frame size: X60cm Y40cm Z20cm -->
+  <!-- https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-70271111-->
+  <xacro:property name="drawer_interior_xdim" value="0.542"/>
+  <xacro:property name="drawer_interior_ydim" value="0.364"/>
+  <xacro:property name="drawer_interior_zdim" value="0.144"/>
+
+  <xacro:property name="drawer_side_panel_xdim" value="${drawer_interior_xdim}"/>
   <xacro:property name="drawer_side_panel_ydim" value="${thickness}"/>
-  <xacro:property name="drawer_side_panel_zdim" value="${drawer_zdim}"/>
-  <xacro:property name="drawer_side_panel_mass" value="0.8"/>
+  <xacro:property name="drawer_side_panel_zdim" value="${drawer_interior_zdim}"/>
+  <xacro:property name="drawer_side_panel_mass" value="2"/>
 
-  <xacro:property name="drawer_bottom_panel_xdim" value="${drawer_xdim}"/>
-  <xacro:property name="drawer_bottom_panel_ydim" value="0.396"/>
+  <xacro:property name="drawer_bottom_panel_xdim" value="${drawer_interior_xdim}"/>
+  <xacro:property name="drawer_bottom_panel_ydim" value="${drawer_interior_ydim}"/>
   <xacro:property name="drawer_bottom_panel_zdim" value="${thickness}"/>
-  <xacro:property name="drawer_bottom_panel_mass" value="0.8"/>
+  <xacro:property name="drawer_bottom_panel_mass" value="3"/>
 
-  <!--https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/askersund-art-50331776-->
+  <xacro:property name="drawer_back_panel_xdim" value="${thickness}"/>
+  <xacro:property name="drawer_back_panel_ydim" value="${drawer_interior_ydim}"/>
+  <xacro:property name="drawer_back_panel_zdim" value="${drawer_interior_zdim}"/>
+  <xacro:property name="drawer_back_panel_mass" value="2"/>
+
+  <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/askersund-art-50331776-->
   <xacro:property name="pull_out_front_panel_xdim" value="${thickness}"/>
   <xacro:property name="pull_out_front_panel_ydim" value="0.197"/>
   <xacro:property name="pull_out_front_panel_zdim" value="0.797"/>
   <xacro:property name="pull_out_front_panel_mass" value="1.66"/>
 
-  <!--  https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-80297276-->
+  <!-- https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-80297276-->
 
   <xacro:macro name="box_inertia" params="mass xdim ydim zdim">
     <inertia ixx="${mass * (ydim * ydim + zdim * zdim) / 12}" ixy="0" ixz="0"
@@ -217,13 +227,13 @@
       <parent link="${prefix}_${name}_front_panel"/>
       <child link="${prefix}_${name}_bottom_panel"/>
       <origin xyz="${(-drawer_front_panel_xdim-drawer_bottom_panel_xdim)/2}
-                    0 ${(-drawer_front_panel_zdim+drawer_bottom_panel_zdim)/2}"
+                    0 ${-drawer_side_panel_zdim/2+drawer_bottom_panel_zdim)}"
       />
     </joint>
 
     <xacro:box_link prefix="${prefix}" link_name="${name}_left_side_panel" mass="${drawer_side_panel_mass}"
                     xdim="${drawer_side_panel_xdim}" ydim="${drawer_side_panel_ydim}" zdim="${drawer_side_panel_zdim}"
-                    material="White"/>
+                    material="Glass"/>
 
     <joint name="${prefix}_${name}_left_side_panel_joint" type="fixed">
       <parent link="${prefix}_${name}_front_panel"/>
@@ -235,13 +245,25 @@
 
     <xacro:box_link prefix="${prefix}" link_name="${name}_right_side_panel" mass="${drawer_side_panel_mass}"
                     xdim="${drawer_side_panel_xdim}" ydim="${drawer_side_panel_ydim}" zdim="${drawer_side_panel_zdim}"
-                    material="White"/>
+                    material="Glass"/>
 
     <joint name="${prefix}_${name}_right_side_panel_joint" type="fixed">
       <parent link="${prefix}_${name}_front_panel"/>
       <child link="${prefix}_${name}_right_side_panel"/>
       <origin xyz="${(-drawer_front_panel_xdim-drawer_side_panel_xdim)/2}
                     ${(-drawer_front_panel_ydim+drawer_side_panel_ydim)/2} 0"
+      />
+    </joint>
+
+    <xacro:box_link prefix="${prefix}" link_name="${name}_back_panel" mass="${drawer_back_panel_mass}"
+                    xdim="${drawer_back_panel_xdim}" ydim="${drawer_back_panel_ydim}" zdim="${drawer_back_panel_zdim}"
+                    material="White"/>
+
+    <joint name="${prefix}_${name}_back_panel_joint" type="fixed">
+      <parent link="${prefix}_${name}_front_panel"/>
+      <child link="${prefix}_${name}_back_panel"/>
+      <origin xyz="${(-drawer_front_panel_xdim-drawer_back_panel_xdim)/2-drawer_side_panel_xdim}
+                    0 0"
       />
     </joint>
   </xacro:macro>
@@ -261,42 +283,42 @@
       <axis xyz="1 0 0"/>
     </joint>
 
-<!--    <xacro:box_link prefix="${prefix}" link_name="${name}_bottom_panel" mass="${drawer_bottom_panel_mass}"-->
-<!--                    xdim="${drawer_bottom_panel_xdim}" ydim="${drawer_bottom_panel_ydim}"-->
-<!--                    zdim="${drawer_bottom_panel_zdim}"-->
-<!--                    material="White"/>-->
+    <!--    <xacro:box_link prefix="${prefix}" link_name="${name}_bottom_panel" mass="${drawer_bottom_panel_mass}"-->
+    <!--                    xdim="${drawer_bottom_panel_xdim}" ydim="${drawer_bottom_panel_ydim}"-->
+    <!--                    zdim="${drawer_bottom_panel_zdim}"-->
+    <!--                    material="White"/>-->
 
-<!--    <joint name="${prefix}_${name}_bottom_panel_joint" type="fixed">-->
-<!--      <parent link="${prefix}_${name}_front_panel"/>-->
-<!--      <child link="${prefix}_${name}_bottom_panel"/>-->
-<!--      <origin xyz="${(-drawer_front_panel_xdim-drawer_bottom_panel_xdim)/2}-->
-<!--                    0 ${(-drawer_front_panel_zdim+drawer_bottom_panel_zdim)/2}"-->
-<!--      />-->
-<!--    </joint>-->
+    <!--    <joint name="${prefix}_${name}_bottom_panel_joint" type="fixed">-->
+    <!--      <parent link="${prefix}_${name}_front_panel"/>-->
+    <!--      <child link="${prefix}_${name}_bottom_panel"/>-->
+    <!--      <origin xyz="${(-drawer_front_panel_xdim-drawer_bottom_panel_xdim)/2}-->
+    <!--                    0 ${(-drawer_front_panel_zdim+drawer_bottom_panel_zdim)/2}"-->
+    <!--      />-->
+    <!--    </joint>-->
 
-<!--    <xacro:box_link prefix="${prefix}" link_name="${name}_left_side_panel" mass="${drawer_side_panel_mass}"-->
-<!--                    xdim="${drawer_side_panel_xdim}" ydim="${drawer_side_panel_ydim}" zdim="${drawer_side_panel_zdim}"-->
-<!--                    material="White"/>-->
+    <!--    <xacro:box_link prefix="${prefix}" link_name="${name}_left_side_panel" mass="${drawer_side_panel_mass}"-->
+    <!--                    xdim="${drawer_side_panel_xdim}" ydim="${drawer_side_panel_ydim}" zdim="${drawer_side_panel_zdim}"-->
+    <!--                    material="White"/>-->
 
-<!--    <joint name="${prefix}_${name}_left_side_panel_joint" type="fixed">-->
-<!--      <parent link="${prefix}_${name}_front_panel"/>-->
-<!--      <child link="${prefix}_${name}_left_side_panel"/>-->
-<!--      <origin xyz="${(-drawer_front_panel_xdim-drawer_side_panel_xdim)/2}-->
-<!--                    ${(drawer_front_panel_ydim-drawer_side_panel_ydim)/2} 0"-->
-<!--      />-->
-<!--    </joint>-->
+    <!--    <joint name="${prefix}_${name}_left_side_panel_joint" type="fixed">-->
+    <!--      <parent link="${prefix}_${name}_front_panel"/>-->
+    <!--      <child link="${prefix}_${name}_left_side_panel"/>-->
+    <!--      <origin xyz="${(-drawer_front_panel_xdim-drawer_side_panel_xdim)/2}-->
+    <!--                    ${(drawer_front_panel_ydim-drawer_side_panel_ydim)/2} 0"-->
+    <!--      />-->
+    <!--    </joint>-->
 
-<!--    <xacro:box_link prefix="${prefix}" link_name="${name}_right_side_panel" mass="${drawer_side_panel_mass}"-->
-<!--                    xdim="${drawer_side_panel_xdim}" ydim="${drawer_side_panel_ydim}" zdim="${drawer_side_panel_zdim}"-->
-<!--                    material="White"/>-->
+    <!--    <xacro:box_link prefix="${prefix}" link_name="${name}_right_side_panel" mass="${drawer_side_panel_mass}"-->
+    <!--                    xdim="${drawer_side_panel_xdim}" ydim="${drawer_side_panel_ydim}" zdim="${drawer_side_panel_zdim}"-->
+    <!--                    material="White"/>-->
 
-<!--    <joint name="${prefix}_${name}_right_side_panel_joint" type="fixed">-->
-<!--      <parent link="${prefix}_${name}_front_panel"/>-->
-<!--      <child link="${prefix}_${name}_right_side_panel"/>-->
-<!--      <origin xyz="${(-drawer_front_panel_xdim-drawer_side_panel_xdim)/2}-->
-<!--                    ${(-drawer_front_panel_ydim+drawer_side_panel_ydim)/2} 0"-->
-<!--      />-->
-<!--    </joint>-->
+    <!--    <joint name="${prefix}_${name}_right_side_panel_joint" type="fixed">-->
+    <!--      <parent link="${prefix}_${name}_front_panel"/>-->
+    <!--      <child link="${prefix}_${name}_right_side_panel"/>-->
+    <!--      <origin xyz="${(-drawer_front_panel_xdim-drawer_side_panel_xdim)/2}-->
+    <!--                    ${(-drawer_front_panel_ydim+drawer_side_panel_ydim)/2} 0"-->
+    <!--      />-->
+    <!--    </joint>-->
   </xacro:macro>
 
   <!-- Assembles -->
