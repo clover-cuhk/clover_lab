@@ -117,4 +117,85 @@
     <xacro:handle prefix="${prefix}" name="${name}" parent="${prefix}_${name}" xyz="${handle_xyz}" rpy="${handle_rpy}"/>
   </xacro:macro>
 
+  <xacro:macro name="drawer_interior"
+               params="prefix name parent xyz xdim ydim zdim
+                       has_front_panel:=false has_side_panel:=true has_back_panel:=true">
+
+    <xacro:if value="${has_front_panel}">
+
+      <xacro:box_link prefix="${prefix}" link_name="${name}_front_panel" mass="5"
+                      xdim="${thickness}" ydim="${ydim}" zdim="${zdim}" material="White"/>
+
+      <joint name="${prefix}_${name}_front_panel_joint" type="prismatic">
+        <parent link="${parent}"/>
+        <child link="${prefix}_${name}_front_panel"/>
+        <origin xyz="${xyz}"/>
+        <limit effort="10" velocity="1" lower="0" upper="${xdim}"/>
+        <axis xyz="1 0 0"/>
+      </joint>
+
+      <xacro:box_link prefix="${prefix}" link_name="${name}_bottom_panel" mass="5"
+                      xdim="${xdim}" ydim="${ydim}" zdim="${thickness}" material="White"/>
+
+      <joint name="${prefix}_${name}_bottom_panel_joint" type="fixed">
+        <parent link="${prefix}_${name}_front_panel"/>
+        <child link="${prefix}_${name}_bottom_panel"/>
+        <origin xyz="${(-xdim+thickness)/2} 0 ${(-zdim+thickness)/2}"/>
+      </joint>
+
+    </xacro:if>
+
+    <xacro:unless value="${has_front_panel}">
+
+      <xacro:box_link prefix="${prefix}" link_name="${name}_bottom_panel" mass="5"
+                      xdim="${xdim}" ydim="${ydim}" zdim="${thickness}"
+                      material="White"/>
+
+      <joint name="${prefix}_${name}_bottom_panel_joint" type="fixed">
+        <parent link="${parent}"/>
+        <child link="${prefix}_${name}_bottom_panel"/>
+        <origin xyz="${xyz}"/>
+      </joint>
+
+    </xacro:unless>
+
+    <xacro:if value="${has_side_panel}">
+      <xacro:box_link prefix="${prefix}" link_name="${name}_left_side_panel" mass="1"
+                      xdim="${xdim}" ydim="${thickness}" zdim="${zdim}"
+                      material="Glass"/>
+
+      <joint name="${prefix}_${name}_left_side_panel_joint" type="fixed">
+        <parent link="${prefix}_${name}_bottom_panel"/>
+        <child link="${prefix}_${name}_left_side_panel"/>
+        <origin xyz="0 ${(ydim-thickness)/2} ${(zdim-thickness)/2}"
+        />
+      </joint>
+
+      <xacro:box_link prefix="${prefix}" link_name="${name}_right_side_panel" mass="1"
+                      xdim="${xdim}" ydim="${thickness}" zdim="${zdim}"
+                      material="Glass"/>
+
+      <joint name="${prefix}_${name}_right_side_panel_joint" type="fixed">
+        <parent link="${prefix}_${name}_bottom_panel"/>
+        <child link="${prefix}_${name}_right_side_panel"/>
+        <origin xyz="0 ${(-ydim+thickness)/2} ${(zdim-thickness)/2}"
+        />
+      </joint>
+    </xacro:if>
+
+    <xacro:if value="${has_back_panel}">
+      <xacro:box_link prefix="${prefix}" link_name="${name}_back_panel" mass="2"
+                      xdim="${thickness}" ydim="${ydim}" zdim="${zdim}"
+                      material="White"/>
+
+      <joint name="${prefix}_${name}_back_panel_joint" type="fixed">
+        <parent link="${prefix}_${name}_bottom_panel"/>
+        <child link="${prefix}_${name}_back_panel"/>
+        <origin xyz="${(-xdim+thickness)/2} 0 ${(zdim-thickness)/2}"
+        />
+      </joint>
+    </xacro:if>
+
+  </xacro:macro>
+
 </robot>

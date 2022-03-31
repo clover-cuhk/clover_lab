@@ -10,7 +10,7 @@
     <joint name="${prefix}_${name}_front_panel_joint" type="prismatic">
       <parent link="${parent}"/>
       <child link="${prefix}_${name}_front_panel"/>
-      <limit effort="10" lower="0" upper="${drawer_bottom_panel_xdim}" velocity="1"/>
+      <limit effort="10" lower="0" upper="${c3_drawer_interior_xdim}" velocity="1"/>
       <dynamics damping="100" friction="0.1"/>
       <origin xyz="${xyz}"/>
       <axis xyz="1 0 0"/>
@@ -19,54 +19,11 @@
     <xacro:handle prefix="${prefix}" name="${name}" parent="${prefix}_${name}_front_panel"
                   xyz="${drawer_front_panel_xdim/2} 0 ${drawer_front_panel_zdim/2-0.05}"/>
 
-    <xacro:box_link prefix="${prefix}" link_name="${name}_bottom_panel" mass="${drawer_bottom_panel_mass}"
-                    xdim="${drawer_bottom_panel_xdim}" ydim="${drawer_bottom_panel_ydim}"
-                    zdim="${drawer_bottom_panel_zdim}"
-                    material="White"/>
-
-    <joint name="${prefix}_${name}_bottom_panel_joint" type="fixed">
-      <parent link="${prefix}_${name}_front_panel"/>
-      <child link="${prefix}_${name}_bottom_panel"/>
-      <origin xyz="${(-drawer_front_panel_xdim-drawer_bottom_panel_xdim)/2}
-                    0 ${-drawer_side_panel_zdim/2+drawer_bottom_panel_zdim}"
-      />
-    </joint>
-
-    <xacro:box_link prefix="${prefix}" link_name="${name}_left_side_panel" mass="${drawer_side_panel_mass}"
-                    xdim="${drawer_side_panel_xdim}" ydim="${drawer_side_panel_ydim}" zdim="${drawer_side_panel_zdim}"
-                    material="Glass"/>
-
-    <joint name="${prefix}_${name}_left_side_panel_joint" type="fixed">
-      <parent link="${prefix}_${name}_front_panel"/>
-      <child link="${prefix}_${name}_left_side_panel"/>
-      <origin xyz="${(-drawer_front_panel_xdim-drawer_side_panel_xdim)/2}
-                    ${(drawer_front_panel_ydim-drawer_side_panel_ydim)/2} 0"
-      />
-    </joint>
-
-    <xacro:box_link prefix="${prefix}" link_name="${name}_right_side_panel" mass="${drawer_side_panel_mass}"
-                    xdim="${drawer_side_panel_xdim}" ydim="${drawer_side_panel_ydim}" zdim="${drawer_side_panel_zdim}"
-                    material="Glass"/>
-
-    <joint name="${prefix}_${name}_right_side_panel_joint" type="fixed">
-      <parent link="${prefix}_${name}_front_panel"/>
-      <child link="${prefix}_${name}_right_side_panel"/>
-      <origin xyz="${(-drawer_front_panel_xdim-drawer_side_panel_xdim)/2}
-                    ${(-drawer_front_panel_ydim+drawer_side_panel_ydim)/2} 0"
-      />
-    </joint>
-
-    <xacro:box_link prefix="${prefix}" link_name="${name}_back_panel" mass="${drawer_back_panel_mass}"
-                    xdim="${drawer_back_panel_xdim}" ydim="${drawer_back_panel_ydim}" zdim="${drawer_back_panel_zdim}"
-                    material="White"/>
-
-    <joint name="${prefix}_${name}_back_panel_joint" type="fixed">
-      <parent link="${prefix}_${name}_front_panel"/>
-      <child link="${prefix}_${name}_back_panel"/>
-      <origin xyz="${(-drawer_front_panel_xdim-drawer_back_panel_xdim)/2-drawer_side_panel_xdim}
-                    0 0"
-      />
-    </joint>
+    <xacro:drawer_interior prefix="${prefix}" name="${name}_interior" parent="${prefix}_${name}_front_panel"
+                           xyz="${(-drawer_front_panel_xdim-c3_drawer_interior_xdim)/2} 0
+                                ${(-c3_drawer_interior_zdim+thickness)/2}"
+                           xdim="${c3_drawer_interior_xdim}" ydim="${c3_drawer_interior_ydim}"
+                           zdim="${c3_drawer_interior_zdim}"/>
   </xacro:macro>
 
   <xacro:macro name="pull_out" params="prefix name parent xyz">
@@ -78,7 +35,7 @@
     <joint name="${prefix}_${name}_front_panel_joint" type="prismatic">
       <parent link="${parent}"/>
       <child link="${prefix}_${name}_front_panel"/>
-      <limit effort="10" lower="0" upper="${drawer_bottom_panel_xdim}" velocity="1"/>
+      <limit effort="10" lower="0" upper="${po_drawer_interior_xdim}" velocity="1"/>
       <dynamics damping="100" friction="0.1"/>
       <origin xyz="${xyz}"/>
       <axis xyz="1 0 0"/>
@@ -87,42 +44,17 @@
     <xacro:handle prefix="${prefix}" name="${name}" parent="${prefix}_${name}_front_panel"
                   xyz="${pull_out_front_panel_xdim/2} 0 ${pull_out_front_panel_zdim/2-0.05}"/>
 
-    <!--    <xacro:box_link prefix="${prefix}" link_name="${name}_bottom_panel" mass="${drawer_bottom_panel_mass}"-->
-    <!--                    xdim="${drawer_bottom_panel_xdim}" ydim="${drawer_bottom_panel_ydim}"-->
-    <!--                    zdim="${drawer_bottom_panel_zdim}"-->
-    <!--                    material="White"/>-->
+    <xacro:drawer_interior prefix="${prefix}" name="${name}_drawer_1" parent="${prefix}_${name}_front_panel"
+                           xyz="${(-pull_out_front_panel_xdim-po_drawer_interior_xdim)/2} 0
+                                ${(pull_out_front_panel_zdim-po_drawer_interior_1_zdim)/2-0.15}"
+                           xdim="${po_drawer_interior_xdim}" ydim="${po_drawer_interior_ydim}"
+                           zdim="${po_drawer_interior_1_zdim}"/>
 
-    <!--    <joint name="${prefix}_${name}_bottom_panel_joint" type="fixed">-->
-    <!--      <parent link="${prefix}_${name}_front_panel"/>-->
-    <!--      <child link="${prefix}_${name}_bottom_panel"/>-->
-    <!--      <origin xyz="${(-drawer_front_panel_xdim-drawer_bottom_panel_xdim)/2}-->
-    <!--                    0 ${(-drawer_front_panel_zdim+drawer_bottom_panel_zdim)/2}"-->
-    <!--      />-->
-    <!--    </joint>-->
-
-    <!--    <xacro:box_link prefix="${prefix}" link_name="${name}_left_side_panel" mass="${drawer_side_panel_mass}"-->
-    <!--                    xdim="${drawer_side_panel_xdim}" ydim="${drawer_side_panel_ydim}" zdim="${drawer_side_panel_zdim}"-->
-    <!--                    material="White"/>-->
-
-    <!--    <joint name="${prefix}_${name}_left_side_panel_joint" type="fixed">-->
-    <!--      <parent link="${prefix}_${name}_front_panel"/>-->
-    <!--      <child link="${prefix}_${name}_left_side_panel"/>-->
-    <!--      <origin xyz="${(-drawer_front_panel_xdim-drawer_side_panel_xdim)/2}-->
-    <!--                    ${(drawer_front_panel_ydim-drawer_side_panel_ydim)/2} 0"-->
-    <!--      />-->
-    <!--    </joint>-->
-
-    <!--    <xacro:box_link prefix="${prefix}" link_name="${name}_right_side_panel" mass="${drawer_side_panel_mass}"-->
-    <!--                    xdim="${drawer_side_panel_xdim}" ydim="${drawer_side_panel_ydim}" zdim="${drawer_side_panel_zdim}"-->
-    <!--                    material="White"/>-->
-
-    <!--    <joint name="${prefix}_${name}_right_side_panel_joint" type="fixed">-->
-    <!--      <parent link="${prefix}_${name}_front_panel"/>-->
-    <!--      <child link="${prefix}_${name}_right_side_panel"/>-->
-    <!--      <origin xyz="${(-drawer_front_panel_xdim-drawer_side_panel_xdim)/2}-->
-    <!--                    ${(-drawer_front_panel_ydim+drawer_side_panel_ydim)/2} 0"-->
-    <!--      />-->
-    <!--    </joint>-->
+    <xacro:drawer_interior prefix="${prefix}" name="${name}_drawer_2" parent="${prefix}_${name}_front_panel"
+                           xyz="${(-pull_out_front_panel_xdim-po_drawer_interior_xdim)/2} 0
+                                ${(pull_out_front_panel_zdim-po_drawer_interior_1_zdim)/2-0.57}"
+                           xdim="${po_drawer_interior_xdim}" ydim="${po_drawer_interior_ydim}"
+                           zdim="${po_drawer_interior_2_zdim}"/>
   </xacro:macro>
 
   <!-- Assembles -->
@@ -248,6 +180,19 @@
                 xyz="${(bc_frame_xdim+bc_door_xdim)/2} ${-bc_frame_ydim/2} ${(bc_base_zdim+bc_frame_zdim)/2}"
                 mass="${bc_door_mass}" xdim="${bc_door_xdim}" ydim="${bc_door_ydim}" zdim="${bc_door_zdim}"
                 hinge="right" handle_xyz="0.008 0.35 0.28" handle_rpy="${M_PI/2} 0 0"/>
+
+    <xacro:drawer_interior prefix="${prefix}" name="c1_r1_drawer" parent="bc_frame_base_link"
+                           xyz="${bc_frame_xdim/2} ${(-bc_frame_ydim+bc_column_ydim)/2}
+                                ${bc_base_zdim+0.43+c1_r1_drawer_interior_zdim/2}"
+                           xdim="${c1_r1_drawer_interior_xdim}" ydim="${c1_r1_drawer_interior_ydim}"
+                           zdim="${c1_r1_drawer_interior_zdim}"
+                           has_front_panel="true" has_side_panel="false" has_back_panel="false"/>
+
+    <xacro:drawer_interior prefix="${prefix}" name="c1_r2_drawer" parent="bc_frame_base_link"
+                           xyz="${bc_frame_xdim/2} ${(-bc_frame_ydim+bc_column_ydim)/2}
+                                ${bc_base_zdim+0.12+c1_r2_drawer_interior_zdim/2}"
+                           xdim="${c1_r2_drawer_interior_xdim}" ydim="${c1_r2_drawer_interior_ydim}"
+                           zdim="${c1_r2_drawer_interior_zdim}" has_front_panel="true"/>
 
     <!-- Rightmost 2nd column -->
     <xacro:pull_out prefix="${prefix}" name="c2_pull_out" parent="bc_frame_base_link"
