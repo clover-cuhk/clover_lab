@@ -6,7 +6,10 @@
   <xacro:arg name="simulator" default="none"/>
   <xacro:property name="simulator" value="$(arg simulator)"/>
 
-  <xacro:include filename="components.xacro"/>
+  <xacro:include filename="include/materials.xacro"/>
+  <xacro:include filename="include/properties.xacro"/>
+  <xacro:include filename="include/components.xacro"/>
+  <xacro:include filename="include/wall.xacro"/>
 
   <xacro:include filename="base_cabinet.xacro"/>
   <xacro:include filename="wall_cabinet.xacro"/>
@@ -24,16 +27,18 @@
   <xacro:unless value="${simulator == 'pinocchio'}">
     <link name="world"/>
     <joint name="base_cabinet_reference" type="fixed">
-      <origin xyz="-2.7 0.2 ${base_zdim/2}" rpy="0 0 0"/>
+      <origin xyz="-2.7 0.2 ${bc_base_zdim/2}" rpy="0 0 0"/>
       <parent link="world"/>
       <child link="bc_frame_base_link"/>
     </joint>
 
     <joint name="wall_cabinet_reference" type="fixed">
-      <origin xyz="-2.7 0.4 ${1.64+0.81/2}" rpy="0 0 0"/>
+      <origin xyz="${-space_xdim/2} 0.4 ${1.64+wc_frame_zdim/2}" rpy="0 0 0"/>
       <parent link="world"/>
       <child link="wc_frame_back_panel"/>
     </joint>
   </xacro:unless>
+
+  <xacro:wall/>
 
 </robot>

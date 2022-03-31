@@ -16,34 +16,10 @@
   <material name="Oak">
     <color rgba="0.89 0.81 0.69 1.0"/>
   </material>
-  <!--  <xacro:macro name="handle" params="prefix parent *origin">-->
-  <!--    <link name="${prefix}_handle">-->
-  <!--      <visual>-->
-  <!--        <origin xyz="0 0 0" rpy="0 0 0"/>-->
-  <!--        &lt;!&ndash;        <geometry>&ndash;&gt;-->
-  <!--        &lt;!&ndash;          <box size="${worktop_ydim worktop_xdim worktop_zdim}"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        </geometry>&ndash;&gt;-->
-  <!--        <material name="Black"/>-->
-  <!--      </visual>-->
-  <!--      <collision>-->
-  <!--        <origin xyz="0 0 0" rpy="0 0 0"/>-->
-  <!--        &lt;!&ndash;        <geometry>&ndash;&gt;-->
-  <!--        &lt;!&ndash;          <box size="${worktop_ydim worktop_xdim worktop_zdim}"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        </geometry>&ndash;&gt;-->
-  <!--      </collision>-->
-  <!--      <inertial>-->
-  <!--        <mass value="${handle_mass}"/>-->
-  <!--        &lt;!&ndash;        <origin xyz="0 0 0"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        <xacro:box_inertia mass="${worktop_mass}" ydim="${worktop_ydim}" xdim="${worktop_xdim}"&ndash;&gt;-->
-  <!--        &lt;!&ndash;                           zdim="${worktop_zdim}"/>&ndash;&gt;-->
-  <!--      </inertial>-->
-  <!--    </link>-->
-  <!--    <joint name="{prefix}_handle_joint" type="fixed">-->
-  <!--      <parent link="${parent}"/>-->
-  <!--      <child link="{prefix}_handle_link"/>-->
-  <!--      <xacro:insert_block name="origin"/>-->
-  <!--    </joint>-->
-  <!--  </xacro:macro>-->
+  <material name="Green">
+    <color rgba="0.8 1 0.8 1.0"/>
+  </material>
+  <!-- Using meter, kg -->
   <!-- https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-80297276-->
   <link name="bc_frame_base_link">
     <visual>
@@ -193,6 +169,31 @@
     <origin xyz="0.3 -0.884 0.44"/>
     <axis xyz="0 0 -1"/>
   </joint>
+  <link name="base_cabinet_c1_door_handle_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.09"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000211711" ixy="0" ixz="0" iyy="6.3764e-05" iyz="0" izz="0.000274426"/>
+    </inertial>
+  </link>
+  <joint name="base_cabinet_c1_door_handle_joint" type="fixed">
+    <parent link="base_cabinet_c1_door"/>
+    <child link="base_cabinet_c1_door_handle_link"/>
+    <origin rpy="1.5707963267948966 0 0" xyz="0.008 0.35 0.28"/>
+  </joint>
   <link name="base_cabinet_c2_pull_out_front_panel">
     <visual>
       <origin xyz="0 0 0"/>
@@ -220,6 +221,31 @@
     <dynamics damping="100" friction="0.1"/>
     <origin xyz="0.308 -0.41600000000000004                        0.44"/>
     <axis xyz="1 0 0"/>
+  </joint>
+  <link name="base_cabinet_c2_pull_out_handle_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.09"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000211711" ixy="0" ixz="0" iyy="6.3764e-05" iyz="0" izz="0.000274426"/>
+    </inertial>
+  </link>
+  <joint name="base_cabinet_c2_pull_out_handle_joint" type="fixed">
+    <parent link="base_cabinet_c2_pull_out_front_panel"/>
+    <child link="base_cabinet_c2_pull_out_handle_link"/>
+    <origin rpy="0 0 0" xyz="0.008 0 0.34850000000000003"/>
   </joint>
   <!--    <xacro:box_link prefix="${prefix}" link_name="${name}_bottom_panel" mass="${drawer_bottom_panel_mass}"-->
   <!--                    xdim="${drawer_bottom_panel_xdim}" ydim="${drawer_bottom_panel_ydim}"-->
@@ -279,6 +305,31 @@
     <dynamics damping="100" friction="0.1"/>
     <origin xyz="0.308 -0.11599999999999999                      0.74"/>
     <axis xyz="1 0 0"/>
+  </joint>
+  <link name="base_cabinet_c3_r1_drawer_handle_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.09"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000211711" ixy="0" ixz="0" iyy="6.3764e-05" iyz="0" izz="0.000274426"/>
+    </inertial>
+  </link>
+  <joint name="base_cabinet_c3_r1_drawer_handle_joint" type="fixed">
+    <parent link="base_cabinet_c3_r1_drawer_front_panel"/>
+    <child link="base_cabinet_c3_r1_drawer_handle_link"/>
+    <origin rpy="0 0 0" xyz="0.008 0 0.048"/>
   </joint>
   <link name="base_cabinet_c3_r1_drawer_bottom_panel">
     <visual>
@@ -408,6 +459,31 @@
     <origin xyz="0.308 -0.11599999999999999                      0.54"/>
     <axis xyz="1 0 0"/>
   </joint>
+  <link name="base_cabinet_c3_r2_drawer_handle_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.09"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000211711" ixy="0" ixz="0" iyy="6.3764e-05" iyz="0" izz="0.000274426"/>
+    </inertial>
+  </link>
+  <joint name="base_cabinet_c3_r2_drawer_handle_joint" type="fixed">
+    <parent link="base_cabinet_c3_r2_drawer_front_panel"/>
+    <child link="base_cabinet_c3_r2_drawer_handle_link"/>
+    <origin rpy="0 0 0" xyz="0.008 0 0.048"/>
+  </joint>
   <link name="base_cabinet_c3_r2_drawer_bottom_panel">
     <visual>
       <origin xyz="0 0 0"/>
@@ -535,6 +611,31 @@
     <dynamics damping="100" friction="0.1"/>
     <origin xyz="0.308 -0.11599999999999999                      0.34"/>
     <axis xyz="1 0 0"/>
+  </joint>
+  <link name="base_cabinet_c3_r3_drawer_handle_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.09"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000211711" ixy="0" ixz="0" iyy="6.3764e-05" iyz="0" izz="0.000274426"/>
+    </inertial>
+  </link>
+  <joint name="base_cabinet_c3_r3_drawer_handle_joint" type="fixed">
+    <parent link="base_cabinet_c3_r3_drawer_front_panel"/>
+    <child link="base_cabinet_c3_r3_drawer_handle_link"/>
+    <origin rpy="0 0 0" xyz="0.008 0 0.048"/>
   </joint>
   <link name="base_cabinet_c3_r3_drawer_bottom_panel">
     <visual>
@@ -664,6 +765,31 @@
     <origin xyz="0.308 -0.11599999999999999                      0.14"/>
     <axis xyz="1 0 0"/>
   </joint>
+  <link name="base_cabinet_c3_r4_drawer_handle_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.09"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000211711" ixy="0" ixz="0" iyy="6.3764e-05" iyz="0" izz="0.000274426"/>
+    </inertial>
+  </link>
+  <joint name="base_cabinet_c3_r4_drawer_handle_joint" type="fixed">
+    <parent link="base_cabinet_c3_r4_drawer_front_panel"/>
+    <child link="base_cabinet_c3_r4_drawer_handle_link"/>
+    <origin rpy="0 0 0" xyz="0.008 0 0.048"/>
+  </joint>
   <link name="base_cabinet_c3_r4_drawer_bottom_panel">
     <visual>
       <origin xyz="0 0 0"/>
@@ -792,6 +918,31 @@
     <origin xyz="0.3 0.08399999999999996 0.44"/>
     <axis xyz="0 0 -1"/>
   </joint>
+  <link name="base_cabinet_c4_door_handle_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.09"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000211711" ixy="0" ixz="0" iyy="6.3764e-05" iyz="0" izz="0.000274426"/>
+    </inertial>
+  </link>
+  <joint name="base_cabinet_c4_door_handle_joint" type="fixed">
+    <parent link="base_cabinet_c4_door"/>
+    <child link="base_cabinet_c4_door_handle_link"/>
+    <origin rpy="1.5707963267948966 0 0" xyz="0.008 0.35 0.28"/>
+  </joint>
   <link name="base_cabinet_c5_door">
     <visual>
       <origin xyz="0.008 -0.198 0"/>
@@ -819,6 +970,31 @@
     <dynamics damping="100" friction="0.1"/>
     <origin xyz="0.3 0.884 0.44"/>
     <axis xyz="0 0 1"/>
+  </joint>
+  <link name="base_cabinet_c5_door_handle_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.09"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000211711" ixy="0" ixz="0" iyy="6.3764e-05" iyz="0" izz="0.000274426"/>
+    </inertial>
+  </link>
+  <joint name="base_cabinet_c5_door_handle_joint" type="fixed">
+    <parent link="base_cabinet_c5_door"/>
+    <child link="base_cabinet_c5_door_handle_link"/>
+    <origin rpy="1.5707963267948966 0 0" xyz="0.008 -0.35 0.28"/>
   </joint>
 </robot>
 

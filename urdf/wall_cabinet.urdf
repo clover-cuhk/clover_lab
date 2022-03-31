@@ -16,35 +16,11 @@
   <material name="Oak">
     <color rgba="0.89 0.81 0.69 1.0"/>
   </material>
-  <!--  <xacro:macro name="handle" params="prefix parent *origin">-->
-  <!--    <link name="${prefix}_handle">-->
-  <!--      <visual>-->
-  <!--        <origin xyz="0 0 0" rpy="0 0 0"/>-->
-  <!--        &lt;!&ndash;        <geometry>&ndash;&gt;-->
-  <!--        &lt;!&ndash;          <box size="${worktop_ydim worktop_xdim worktop_zdim}"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        </geometry>&ndash;&gt;-->
-  <!--        <material name="Black"/>-->
-  <!--      </visual>-->
-  <!--      <collision>-->
-  <!--        <origin xyz="0 0 0" rpy="0 0 0"/>-->
-  <!--        &lt;!&ndash;        <geometry>&ndash;&gt;-->
-  <!--        &lt;!&ndash;          <box size="${worktop_ydim worktop_xdim worktop_zdim}"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        </geometry>&ndash;&gt;-->
-  <!--      </collision>-->
-  <!--      <inertial>-->
-  <!--        <mass value="${handle_mass}"/>-->
-  <!--        &lt;!&ndash;        <origin xyz="0 0 0"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        <xacro:box_inertia mass="${worktop_mass}" ydim="${worktop_ydim}" xdim="${worktop_xdim}"&ndash;&gt;-->
-  <!--        &lt;!&ndash;                           zdim="${worktop_zdim}"/>&ndash;&gt;-->
-  <!--      </inertial>-->
-  <!--    </link>-->
-  <!--    <joint name="{prefix}_handle_joint" type="fixed">-->
-  <!--      <parent link="${parent}"/>-->
-  <!--      <child link="{prefix}_handle_link"/>-->
-  <!--      <xacro:insert_block name="origin"/>-->
-  <!--    </joint>-->
-  <!--  </xacro:macro>-->
+  <material name="Green">
+    <color rgba="0.8 1 0.8 1.0"/>
+  </material>
   <!-- Using meter, kg -->
+  <!-- https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-80297276-->
   <link name="wc_frame_back_panel">
     <visual>
       <origin xyz="0 0 0"/>
@@ -193,6 +169,31 @@
     <origin xyz="0.366 -0.5 0"/>
     <axis xyz="0 0 -1"/>
   </joint>
+  <link name="wall_cabinet_c1_door_handle_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.09"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000211711" ixy="0" ixz="0" iyy="6.3764e-05" iyz="0" izz="0.000274426"/>
+    </inertial>
+  </link>
+  <joint name="wall_cabinet_c1_door_handle_joint" type="fixed">
+    <parent link="wall_cabinet_c1_door"/>
+    <child link="wall_cabinet_c1_door_handle_link"/>
+    <origin rpy="0 0 0" xyz="0.008 0.48 -0.35"/>
+  </joint>
   <link name="wall_cabinet_c2_door">
     <visual>
       <origin xyz="0.008 -0.198 0"/>
@@ -220,6 +221,31 @@
     <dynamics damping="100" friction="0.1"/>
     <origin xyz="0.366 0.5 0"/>
     <axis xyz="0 0 1"/>
+  </joint>
+  <link name="wall_cabinet_c2_door_handle_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+      <material name="Black"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://clover_lab/meshes/handle.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.09"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.000211711" ixy="0" ixz="0" iyy="6.3764e-05" iyz="0" izz="0.000274426"/>
+    </inertial>
+  </link>
+  <joint name="wall_cabinet_c2_door_handle_joint" type="fixed">
+    <parent link="wall_cabinet_c2_door"/>
+    <child link="wall_cabinet_c2_door_handle_link"/>
+    <origin rpy="0 0 0" xyz="0.008 -0.28 -0.35"/>
   </joint>
 </robot>
 

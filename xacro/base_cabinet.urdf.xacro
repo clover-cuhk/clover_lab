@@ -9,7 +9,9 @@
   <xacro:arg name="simulator" default="none"/>
   <xacro:property name="simulator" value="$(arg simulator)"/>
 
-  <xacro:include filename="components.xacro"/>
+  <xacro:include filename="include/materials.xacro"/>
+  <xacro:include filename="include/properties.xacro"/>
+  <xacro:include filename="include/components.xacro"/>
 
   <xacro:include filename="base_cabinet.xacro"/>
 

@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<robot name="wall" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <!-- Using meter, kg -->
+
+  <!-- The free space dimensions of the lab room -->
+  <xacro:property name="space_xdim" value="6"/>
+  <xacro:property name="space_ydim" value="3.2"/>
+  <xacro:property name="space_zdim" value="2.7"/>
+
+  <xacro:property name="wall_thickness" value="0.1"/>
+
+  <xacro:property name="thickness" value="0.016"/>
+  <xacro:property name="tolerance" value="0.004"/>
+
+  <!-- Wall cabinet -->
+  <!-- Frame refers to the main part of the cabinet -->
+  <xacro:property name="wc_frame_xdim" value="0.39"/>
+  <xacro:property name="wc_frame_ydim" value="1"/>
+  <xacro:property name="wc_frame_zdim" value="0.81"/>
+
+  <!-- https://www.ikea.com.hk/en/products/kitchen-cabinets-and-worktops/kitchen-cabinets/enhet-spr-49395118 -->
+  <xacro:property name="wc_frame_h_panel_xdim" value="${wc_frame_xdim-thickness}"/>
+  <xacro:property name="wc_frame_h_panel_ydim" value="${wc_frame_ydim}"/>
+  <xacro:property name="wc_frame_h_panel_zdim" value="${thickness}"/>
+  <xacro:property name="wc_frame_h_panel_mass" value="20"/>
+
+  <xacro:property name="wc_frame_side_panel_xdim" value="${wc_frame_xdim-thickness}"/>
+  <xacro:property name="wc_frame_side_panel_ydim" value="${thickness}"/>
+  <xacro:property name="wc_frame_side_panel_zdim" value="${wc_frame_zdim}"/>
+  <xacro:property name="wc_frame_side_panel_mass" value="10"/>
+
+  <xacro:property name="wc_frame_back_panel_xdim" value="${thickness}"/>
+  <xacro:property name="wc_frame_back_panel_ydim" value="${wc_frame_ydim}"/>
+  <xacro:property name="wc_frame_back_panel_zdim" value="${wc_frame_zdim}"/>
+  <xacro:property name="wc_frame_back_panel_mass" value="20"/>
+
+  <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/enhet-art-90481556 -->
+  <xacro:property name="wc_door_xdim" value="${thickness}"/>
+  <xacro:property name="wc_door_zdim" value="${wc_frame_zdim-tolerance}"/>
+  <xacro:property name="door_mass" value="3.31"/>
+
+  <!-- Base cabinet -->
+  <xacro:property name="bc_base_xdim" value="0.6"/>
+  <xacro:property name="bc_base_ydim" value="1.8"/>
+  <xacro:property name="bc_base_zdim" value="0.08"/>
+  <xacro:property name="bc_base_mass" value="20"/>
+
+  <!-- Frame refers to the main part of the cabinet -->
+  <xacro:property name="bc_frame_xdim" value="0.6"/>
+  <xacro:property name="bc_frame_ydim" value="1.8"/>
+  <xacro:property name="bc_frame_zdim" value="0.8"/>
+
+  <xacro:property name="bc_column_ydim" value="0.4"/>
+  <xacro:property name="bc_row_zdim" value="${bc_frame_zdim/4}"/>
+
+  <xacro:property name="bc_frame_back_panel_xdim" value="${thickness}"/>
+  <xacro:property name="bc_frame_back_panel_ydim" value="${bc_frame_ydim}"/>
+  <xacro:property name="bc_frame_back_panel_zdim" value="${bc_frame_zdim}"/>
+  <xacro:property name="bc_frame_back_panel_mass" value="20"/>
+
+  <xacro:property name="bc_frame_side_panel_xdim" value="${bc_frame_xdim}"/>
+  <xacro:property name="bc_frame_side_panel_ydim" value="${thickness}"/>
+  <xacro:property name="bc_frame_side_panel_zdim" value="${bc_frame_zdim}"/>
+  <xacro:property name="bc_frame_side_panel_mass" value="5"/>
+
+  <!-- https://www.ikea.com.hk/zh/products/kitchen-worktops/kitchen-worktops/lilltrask-art-40280659-->
+  <xacro:property name="worktop_xdim" value="0.635"/>
+  <xacro:property name="worktop_ydim" value="1.86"/>
+  <xacro:property name="worktop_zdim" value="0.028"/>
+  <xacro:property name="worktop_mass" value="20.65"/>
+
+  <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/enhet-art-90481556 -->
+  <xacro:property name="bc_door_xdim" value="${thickness}"/>
+  <xacro:property name="bc_door_ydim" value="${bc_column_ydim-tolerance}"/>
+  <xacro:property name="bc_door_zdim" value="${bc_frame_zdim-tolerance}"/>
+  <xacro:property name="bc_door_mass" value="3.31"/>
+
+  <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/enhet-art-30481559 -->
+  <xacro:property name="drawer_front_panel_xdim" value="${thickness}"/>
+  <xacro:property name="drawer_front_panel_ydim" value="${bc_column_ydim-tolerance}"/>
+  <xacro:property name="drawer_front_panel_zdim" value="${bc_row_zdim-tolerance}"/>
+  <xacro:property name="drawer_front_panel_mass" value="0.75"/>
+
+  <!-- Drawer interior, bc_frame size: X60cm Y40cm Z20cm -->
+  <!-- https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-70271111-->
+  <xacro:property name="drawer_interior_xdim" value="0.542"/>
+  <xacro:property name="drawer_interior_ydim" value="0.364"/>
+  <xacro:property name="drawer_interior_zdim" value="0.144"/>
+
+  <xacro:property name="drawer_side_panel_xdim" value="${drawer_interior_xdim}"/>
+  <xacro:property name="drawer_side_panel_ydim" value="${thickness}"/>
+  <xacro:property name="drawer_side_panel_zdim" value="${drawer_interior_zdim}"/>
+  <xacro:property name="drawer_side_panel_mass" value="2"/>
+
+  <xacro:property name="drawer_bottom_panel_xdim" value="${drawer_interior_xdim}"/>
+  <xacro:property name="drawer_bottom_panel_ydim" value="${drawer_interior_ydim}"/>
+  <xacro:property name="drawer_bottom_panel_zdim" value="${thickness}"/>
+  <xacro:property name="drawer_bottom_panel_mass" value="3"/>
+
+  <xacro:property name="drawer_back_panel_xdim" value="${thickness}"/>
+  <xacro:property name="drawer_back_panel_ydim" value="${drawer_interior_ydim}"/>
+  <xacro:property name="drawer_back_panel_zdim" value="${drawer_interior_zdim}"/>
+  <xacro:property name="drawer_back_panel_mass" value="2"/>
+
+  <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/askersund-art-50331776-->
+  <xacro:property name="pull_out_front_panel_xdim" value="${thickness}"/>
+  <xacro:property name="pull_out_front_panel_ydim" value="0.197"/>
+  <xacro:property name="pull_out_front_panel_zdim" value="0.797"/>
+  <xacro:property name="pull_out_front_panel_mass" value="1.66"/>
+
+  <!-- https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-80297276-->
+
+</robot>

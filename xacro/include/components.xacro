@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <robot name="components" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <xacro:include filename="materials.xacro"/>
-
   <xacro:property name="M_PI" value="3.1415926535897931"/>
 
   <!-- https://www.ikea.com.hk/en/products/knobs-and-handles/knobs-and-handles/bagganas-art-70338423 -->
@@ -63,40 +61,41 @@
     </link>
   </xacro:macro>
 
-  <!--  <xacro:macro name="handle" params="prefix parent *origin">-->
-  <!--    <link name="${prefix}_handle">-->
-  <!--      <visual>-->
-  <!--        <origin xyz="0 0 0" rpy="0 0 0"/>-->
-  <!--        &lt;!&ndash;        <geometry>&ndash;&gt;-->
-  <!--        &lt;!&ndash;          <box size="${worktop_ydim worktop_xdim worktop_zdim}"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        </geometry>&ndash;&gt;-->
-  <!--        <material name="Black"/>-->
-  <!--      </visual>-->
+  <xacro:macro name="handle" params="prefix name parent xyz rpy:='0 0 0'">
+    <link name="${prefix}_${name}_handle_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://clover_lab/meshes/handle.stl"/>
+        </geometry>
+        <material name="Black"/>
+      </visual>
 
-  <!--      <collision>-->
-  <!--        <origin xyz="0 0 0" rpy="0 0 0"/>-->
-  <!--        &lt;!&ndash;        <geometry>&ndash;&gt;-->
-  <!--        &lt;!&ndash;          <box size="${worktop_ydim worktop_xdim worktop_zdim}"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        </geometry>&ndash;&gt;-->
-  <!--      </collision>-->
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://clover_lab/meshes/handle.stl"/>
+        </geometry>
+      </collision>
 
-  <!--      <inertial>-->
-  <!--        <mass value="${handle_mass}"/>-->
-  <!--        &lt;!&ndash;        <origin xyz="0 0 0"/>&ndash;&gt;-->
-  <!--        &lt;!&ndash;        <xacro:box_inertia mass="${worktop_mass}" ydim="${worktop_ydim}" xdim="${worktop_xdim}"&ndash;&gt;-->
-  <!--        &lt;!&ndash;                           zdim="${worktop_zdim}"/>&ndash;&gt;-->
-  <!--      </inertial>-->
-  <!--    </link>-->
+      <inertial>
+        <mass value="${handle_mass}"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="${211.711 * 1e-6}" ixy="0" ixz="0"
+                 iyy="${63.764 * 1e-6}" iyz="0"
+                 izz="${274.426 * 1e-6}"/>
+      </inertial>
+    </link>
 
-  <!--    <joint name="{prefix}_handle_joint" type="fixed">-->
-  <!--      <parent link="${parent}"/>-->
-  <!--      <child link="{prefix}_handle_link"/>-->
-  <!--      <xacro:insert_block name="origin"/>-->
-  <!--    </joint>-->
+    <joint name="${prefix}_${name}_handle_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}_${name}_handle_link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
 
-  <!--  </xacro:macro>-->
+  </xacro:macro>
 
-  <xacro:macro name="door" params="prefix name parent xyz mass xdim ydim zdim hinge">
+  <xacro:macro name="door" params="prefix name parent xyz mass xdim ydim zdim hinge handle_xyz handle_rpy">
     <xacro:box_link prefix="${prefix}" link_name="${name}" mass="${mass}"
                     xdim="${xdim}" ydim="${ydim}" zdim="${zdim}"
                     material="Oak" hinge="${hinge}"/>
@@ -114,6 +113,8 @@
         <axis xyz="0 0 1"/>
       </xacro:unless>
     </joint>
+
+    <xacro:handle prefix="${prefix}" name="${name}" parent="${prefix}_${name}" xyz="${handle_xyz}" rpy="${handle_rpy}"/>
   </xacro:macro>
 
 </robot>

@@ -1,37 +1,6 @@
 <?xml version="1.0"?>
 <robot name="wall_cabinet" xmlns:xacro="http://wiki.ros.org/xacro">
 
-  <!-- Using meter, kg -->
-
-  <!-- Frame refers to the main part of the cabinet -->
-  <xacro:property name="wc_frame_xdim" value="0.39"/>
-  <xacro:property name="wc_frame_ydim" value="1"/>
-  <xacro:property name="wc_frame_zdim" value="0.81"/>
-
-  <xacro:property name="thickness" value="0.016"/>
-  <xacro:property name="tolerance" value="0.004"/>
-
-  <!-- https://www.ikea.com.hk/en/products/kitchen-cabinets-and-worktops/kitchen-cabinets/enhet-spr-49395118 -->
-  <xacro:property name="wc_frame_h_panel_xdim" value="${wc_frame_xdim-thickness}"/>
-  <xacro:property name="wc_frame_h_panel_ydim" value="${wc_frame_ydim}"/>
-  <xacro:property name="wc_frame_h_panel_zdim" value="${thickness}"/>
-  <xacro:property name="wc_frame_h_panel_mass" value="20"/>
-
-  <xacro:property name="wc_frame_side_panel_xdim" value="${wc_frame_xdim-thickness}"/>
-  <xacro:property name="wc_frame_side_panel_ydim" value="${thickness}"/>
-  <xacro:property name="wc_frame_side_panel_zdim" value="${wc_frame_zdim}"/>
-  <xacro:property name="wc_frame_side_panel_mass" value="10"/>
-
-  <xacro:property name="wc_frame_back_panel_xdim" value="${thickness}"/>
-  <xacro:property name="wc_frame_back_panel_ydim" value="${wc_frame_ydim}"/>
-  <xacro:property name="wc_frame_back_panel_zdim" value="${wc_frame_zdim}"/>
-  <xacro:property name="wc_frame_back_panel_mass" value="20"/>
-
-  <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/enhet-art-90481556 -->
-  <xacro:property name="door_xdim" value="${thickness}"/>
-  <xacro:property name="door_zdim" value="${wc_frame_zdim-tolerance}"/>
-  <xacro:property name="door_mass" value="3.31"/>
-
   <!-- Assembles -->
   <xacro:macro name="wc_frame">
     <xacro:box_link prefix="wc_frame" link_name="back_panel" mass="${wc_frame_back_panel_mass}"
@@ -98,14 +67,14 @@
     <!-- The +x direction points from the back of the cabinet to the front -->
     <!-- Rightmost 1st column -->
     <xacro:door prefix="${prefix}" name="c1_door" parent="wc_frame_back_panel"
-                xyz="${wc_frame_side_panel_xdim-door_xdim/2} ${-wc_frame_back_panel_ydim/2} 0"
-                mass="${door_mass}" xdim="${door_xdim}" ydim="${0.6-tolerance}" zdim="${door_zdim}"
-                hinge="right"/>
+                xyz="${wc_frame_side_panel_xdim-wc_door_xdim/2} ${-wc_frame_back_panel_ydim/2} 0"
+                mass="${door_mass}" xdim="${wc_door_xdim}" ydim="${0.6-tolerance}" zdim="${wc_door_zdim}"
+                hinge="right" handle_xyz="0.008 0.48 -0.35" handle_rpy="0 0 0"/>
 
     <!-- Rightmost 2nd column -->
     <xacro:door prefix="${prefix}" name="c2_door" parent="wc_frame_back_panel"
-                xyz="${wc_frame_side_panel_xdim-door_xdim/2} ${wc_frame_back_panel_ydim/2} 0"
-                mass="${door_mass}" xdim="${door_xdim}" ydim="${0.4-tolerance}" zdim="${door_zdim}"
-                hinge="left"/>
+                xyz="${wc_frame_side_panel_xdim-wc_door_xdim/2} ${wc_frame_back_panel_ydim/2} 0"
+                mass="${door_mass}" xdim="${wc_door_xdim}" ydim="${0.4-tolerance}" zdim="${wc_door_zdim}"
+                hinge="left" handle_xyz="0.008 -0.28 -0.35" handle_rpy="0 0 0"/>
   </xacro:macro>
 </robot>
