@@ -127,8 +127,8 @@
 
   <!-- Assembles -->
   <xacro:macro name="bc_frame">
-    <xacro:box_link prefix="bc_frame" link_name="base_link" mass="${bc_base_mass}" xdim="${bc_base_xdim}" ydim="${bc_base_ydim}"
-                    zdim="${bc_base_zdim}" material="White"/>
+    <xacro:box_link prefix="bc_frame" link_name="base_link" mass="${bc_base_mass}" xdim="${bc_base_xdim}"
+                    ydim="${bc_base_ydim}" zdim="${bc_base_zdim}" material="White"/>
 
     <xacro:box_link prefix="bc_frame" link_name="left_side_panel" mass="${bc_frame_side_panel_mass}"
                     xdim="${bc_frame_side_panel_xdim}" ydim="${bc_frame_side_panel_ydim}"
@@ -136,7 +136,8 @@
                     material="White"/>
 
     <joint name="bc_frame_left_side_panel_joint" type="fixed">
-      <origin xyz="0 ${(bc_base_ydim-bc_frame_side_panel_ydim)/2} ${(bc_base_zdim+bc_frame_side_panel_zdim)/2}" rpy="0 0 0"/>
+      <origin xyz="0 ${(bc_base_ydim-bc_frame_side_panel_ydim)/2} ${(bc_base_zdim+bc_frame_side_panel_zdim)/2}"
+              rpy="0 0 0"/>
       <parent link="bc_frame_base_link"/>
       <child link="bc_frame_left_side_panel"/>
     </joint>
@@ -147,7 +148,8 @@
                     material="White"/>
 
     <joint name="bc_frame_right_side_panel_joint" type="fixed">
-      <origin xyz="0 ${(-bc_base_ydim+bc_frame_side_panel_ydim)/2} ${(bc_base_zdim+bc_frame_side_panel_zdim)/2}" rpy="0 0 0"/>
+      <origin xyz="0 ${(-bc_base_ydim+bc_frame_side_panel_ydim)/2} ${(bc_base_zdim+bc_frame_side_panel_zdim)/2}"
+              rpy="0 0 0"/>
       <parent link="bc_frame_base_link"/>
       <child link="bc_frame_right_side_panel"/>
     </joint>
@@ -158,7 +160,8 @@
                     material="White"/>
 
     <joint name="bc_frame_back_panel_joint" type="fixed">
-      <origin xyz="${(-bc_base_xdim+bc_frame_back_panel_xdim)/2} 0 ${(bc_base_zdim+bc_frame_back_panel_zdim)/2}" rpy="0 0 0"/>
+      <origin xyz="${(-bc_base_xdim+bc_frame_back_panel_xdim)/2} 0 ${(bc_base_zdim+bc_frame_back_panel_zdim)/2}"
+              rpy="0 0 0"/>
       <parent link="bc_frame_base_link"/>
       <child link="bc_frame_back_panel"/>
     </joint>
@@ -168,10 +171,64 @@
                     material="White"/>
 
     <joint name="bc_frame_worktop_joint" type="fixed">
-      <origin xyz="0 0 ${(bc_base_zdim+worktop_zdim)/2+bc_frame_back_panel_zdim}" rpy="0 0 0"/>
+      <origin xyz="0 0 ${(bc_base_zdim+worktop_zdim)/2+bc_frame_zdim}"/>
       <parent link="bc_frame_base_link"/>
       <child link="bc_frame_worktop"/>
     </joint>
+
+    <!-- Interior shelf -->
+    <!-- Vertical -->
+    <xacro:box_link prefix="bc_frame" link_name="c1_v_shelf" mass="${bc_v_shelf_mass}"
+                    xdim="${bc_v_shelf_xdim}" ydim="${bc_v_shelf_ydim}" zdim="${bc_v_shelf_zdim}"
+                    material="White"/>
+
+    <joint name="bc_frame_c1_v_shelf_joint" type="fixed">
+      <origin xyz="0 ${-bc_frame_ydim/2+bc_column_ydim} ${(bc_base_zdim+bc_frame_zdim)/2}"/>
+      <parent link="bc_frame_base_link"/>
+      <child link="bc_frame_c1_v_shelf"/>
+    </joint>
+
+    <xacro:box_link prefix="bc_frame" link_name="c2_v_shelf" mass="${bc_v_shelf_mass}"
+                    xdim="${bc_v_shelf_xdim}" ydim="${bc_v_shelf_ydim}" zdim="${bc_v_shelf_zdim}"
+                    material="White"/>
+
+    <joint name="bc_frame_c2_v_shelf_joint" type="fixed">
+      <origin xyz="0 ${-bc_frame_ydim/2+bc_column_ydim*1.5} ${(bc_base_zdim+bc_frame_zdim)/2}"/>
+      <parent link="bc_frame_base_link"/>
+      <child link="bc_frame_c2_v_shelf"/>
+    </joint>
+
+    <xacro:box_link prefix="bc_frame" link_name="c3_v_shelf" mass="${bc_v_shelf_mass}"
+                    xdim="${bc_v_shelf_xdim}" ydim="${bc_v_shelf_ydim}" zdim="${bc_v_shelf_zdim}"
+                    material="White"/>
+
+    <joint name="bc_frame_c3_v_shelf_joint" type="fixed">
+      <origin xyz="0 ${-bc_frame_ydim/2+bc_column_ydim*2.5} ${(bc_base_zdim+bc_frame_zdim)/2}"/>
+      <parent link="bc_frame_base_link"/>
+      <child link="bc_frame_c3_v_shelf"/>
+    </joint>
+
+    <!-- Horizontal -->
+    <xacro:box_link prefix="bc_frame" link_name="h1_shelf" mass="${bc_h_shelf_mass}"
+                    xdim="${bc_h_shelf_xdim}" ydim="${bc_h_shelf_ydim}" zdim="${bc_h_shelf_zdim}"
+                    material="White"/>
+
+    <joint name="bc_frame_h1_shelf_joint" type="fixed">
+      <origin xyz="0 ${-bc_frame_ydim/2+bc_column_ydim*3.5} ${(bc_base_zdim-bc_h_shelf_zdim)/2+bc_frame_zdim-0.24}"/>
+      <parent link="bc_frame_base_link"/>
+      <child link="bc_frame_h1_shelf"/>
+    </joint>
+
+    <xacro:box_link prefix="bc_frame" link_name="h2_shelf" mass="${bc_h_shelf_mass}"
+                    xdim="${bc_h_shelf_xdim}" ydim="${bc_h_shelf_ydim}" zdim="${bc_h_shelf_zdim}"
+                    material="White"/>
+
+    <joint name="bc_frame_h2_shelf_joint" type="fixed">
+      <origin xyz="0 ${-bc_frame_ydim/2+bc_column_ydim*3.5} ${(bc_base_zdim-bc_h_shelf_zdim)/2+bc_frame_zdim-0.46}"/>
+      <parent link="bc_frame_base_link"/>
+      <child link="bc_frame_h2_shelf"/>
+    </joint>
+
   </xacro:macro>
 
   <xacro:macro name="base_cabinet" params="prefix connected_to:='' xyz:='0 0 0' rpy:='0 0 0'">
@@ -188,41 +245,50 @@
     <!-- The +x direction points from the back of the cabinet to the front -->
     <!-- Rightmost 1st column -->
     <xacro:door prefix="${prefix}" name="c1_door" parent="bc_frame_base_link"
-                xyz="${bc_base_xdim/2} ${-bc_base_ydim/2+bc_frame_side_panel_ydim} ${(bc_base_zdim+bc_frame_side_panel_zdim)/2}"
+                xyz="${(bc_frame_xdim+bc_door_xdim)/2} ${-bc_frame_ydim/2} ${(bc_base_zdim+bc_frame_zdim)/2}"
                 mass="${bc_door_mass}" xdim="${bc_door_xdim}" ydim="${bc_door_ydim}" zdim="${bc_door_zdim}"
                 hinge="right" handle_xyz="0.008 0.35 0.28" handle_rpy="${M_PI/2} 0 0"/>
 
     <!-- Rightmost 2nd column -->
     <xacro:pull_out prefix="${prefix}" name="c2_pull_out" parent="bc_frame_base_link"
-                    xyz="${(bc_base_xdim+thickness)/2} ${bc_base_ydim/2-bc_frame_side_panel_ydim-bc_column_ydim*3.25}
-                       ${(bc_base_zdim+bc_frame_zdim)/2}"/>
+                    xyz="${(bc_frame_xdim+pull_out_front_panel_xdim)/2}
+                         ${-bc_frame_ydim/2+bc_column_ydim*1.25}
+                         ${(bc_base_zdim+bc_frame_zdim)/2}"/>
 
     <!-- Rightmost 3rd column -->
     <xacro:drawer prefix="${prefix}" name="c3_r1_drawer" parent="bc_frame_base_link"
-                  xyz="${(bc_base_xdim+drawer_front_panel_xdim)/2} ${bc_base_ydim/2-bc_frame_side_panel_ydim-bc_column_ydim*2.5}
-                     ${(bc_base_zdim-bc_row_zdim)/2+bc_frame_zdim}"/>
+                  xyz="${(bc_frame_xdim+drawer_front_panel_xdim)/2}
+                       ${-bc_frame_ydim/2+bc_column_ydim*2}
+                       ${(bc_base_zdim-bc_row_zdim)/2+bc_frame_zdim}"/>
 
     <xacro:drawer prefix="${prefix}" name="c3_r2_drawer" parent="bc_frame_base_link"
-                  xyz="${(bc_base_xdim+drawer_front_panel_xdim)/2} ${bc_base_ydim/2-bc_frame_side_panel_ydim-bc_column_ydim*2.5}
-                     ${(bc_base_zdim-bc_row_zdim*3)/2+bc_frame_zdim}"/>
+                  xyz="${(bc_frame_xdim+drawer_front_panel_xdim)/2}
+                       ${-bc_frame_ydim/2+bc_column_ydim*2}
+                       ${(bc_base_zdim-bc_row_zdim*3)/2+bc_frame_zdim}"/>
 
     <xacro:drawer prefix="${prefix}" name="c3_r3_drawer" parent="bc_frame_base_link"
-                  xyz="${(bc_base_xdim+drawer_front_panel_xdim)/2} ${bc_base_ydim/2-bc_frame_side_panel_ydim-bc_column_ydim*2.5}
-                     ${(bc_base_zdim-bc_row_zdim*5)/2+bc_frame_zdim}"/>
+                  xyz="${(bc_frame_xdim+drawer_front_panel_xdim)/2}
+                       ${-bc_frame_ydim/2+bc_column_ydim*2}
+                       ${(bc_base_zdim-bc_row_zdim*5)/2+bc_frame_zdim}"/>
 
     <xacro:drawer prefix="${prefix}" name="c3_r4_drawer" parent="bc_frame_base_link"
-                  xyz="${(bc_base_xdim+drawer_front_panel_xdim)/2} ${bc_base_ydim/2-bc_frame_side_panel_ydim-bc_column_ydim*2.5}
-                     ${(bc_base_zdim-bc_row_zdim*7)/2+bc_frame_zdim}"/>
+                  xyz="${(bc_frame_xdim+drawer_front_panel_xdim)/2}
+                       ${-bc_frame_ydim/2+bc_column_ydim*2}
+                       ${(bc_base_zdim-bc_row_zdim*7)/2+bc_frame_zdim}"/>
 
     <!-- Rightmost 4th column -->
     <xacro:door prefix="${prefix}" name="c4_door" parent="bc_frame_base_link"
-                xyz="${bc_base_xdim/2} ${bc_base_ydim/2-bc_frame_side_panel_ydim-bc_column_ydim*2} ${(bc_base_zdim+bc_frame_side_panel_zdim)/2}"
+                xyz="${(bc_frame_xdim+bc_door_xdim)/2}
+                     ${-bc_frame_ydim/2+bc_column_ydim*2.5}
+                     ${(bc_base_zdim+bc_frame_zdim)/2}"
                 mass="${bc_door_mass}" xdim="${bc_door_xdim}" ydim="${bc_door_ydim}" zdim="${bc_door_zdim}"
                 hinge="right" handle_xyz="0.008 0.35 0.28" handle_rpy="${M_PI/2} 0 0"/>
 
     <!-- Rightmost 5th column -->
     <xacro:door prefix="${prefix}" name="c5_door" parent="bc_frame_base_link"
-                xyz="${bc_base_xdim/2} ${bc_base_ydim/2-bc_frame_side_panel_ydim} ${(bc_base_zdim+bc_frame_side_panel_zdim)/2}"
+                xyz="${(bc_frame_xdim+bc_door_xdim)/2}
+                     ${-bc_frame_ydim/2+bc_column_ydim*4.5}
+                     ${(bc_base_zdim+bc_frame_zdim)/2}"
                 mass="${bc_door_mass}" xdim="${bc_door_xdim}" ydim="${bc_door_ydim}" zdim="${bc_door_zdim}"
                 hinge="left" handle_xyz="0.008 -0.35 0.28" handle_rpy="${M_PI/2} 0 0"/>
   </xacro:macro>

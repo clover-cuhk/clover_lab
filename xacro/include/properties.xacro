@@ -19,13 +19,16 @@
   <xacro:property name="wc_frame_ydim" value="1"/>
   <xacro:property name="wc_frame_zdim" value="0.81"/>
 
+  <!-- The wall cabinet has 2 columns, whose width are 0.6m and 0.4m, respectively -->
+  <xacro:property name="wc_column_ydim" value="0.6"/>
+
   <!-- https://www.ikea.com.hk/en/products/kitchen-cabinets-and-worktops/kitchen-cabinets/enhet-spr-49395118 -->
-  <xacro:property name="wc_frame_h_panel_xdim" value="${wc_frame_xdim-thickness}"/>
+  <xacro:property name="wc_frame_h_panel_xdim" value="${wc_frame_xdim}"/>
   <xacro:property name="wc_frame_h_panel_ydim" value="${wc_frame_ydim}"/>
   <xacro:property name="wc_frame_h_panel_zdim" value="${thickness}"/>
   <xacro:property name="wc_frame_h_panel_mass" value="20"/>
 
-  <xacro:property name="wc_frame_side_panel_xdim" value="${wc_frame_xdim-thickness}"/>
+  <xacro:property name="wc_frame_side_panel_xdim" value="${wc_frame_xdim}"/>
   <xacro:property name="wc_frame_side_panel_ydim" value="${thickness}"/>
   <xacro:property name="wc_frame_side_panel_zdim" value="${wc_frame_zdim}"/>
   <xacro:property name="wc_frame_side_panel_mass" value="10"/>
@@ -35,6 +38,17 @@
   <xacro:property name="wc_frame_back_panel_zdim" value="${wc_frame_zdim}"/>
   <xacro:property name="wc_frame_back_panel_mass" value="20"/>
 
+  <xacro:property name="wc_shelf_thickness" value="0.02"/>
+  <xacro:property name="wc_v_shelf_xdim" value="${wc_frame_xdim}"/>
+  <xacro:property name="wc_v_shelf_ydim" value="${wc_shelf_thickness*2}"/>
+  <xacro:property name="wc_v_shelf_zdim" value="${wc_frame_zdim}"/>
+  <xacro:property name="wc_v_shelf_mass" value="10"/>
+
+  <xacro:property name="wc_h_shelf_xdim" value="${wc_frame_xdim}"/>
+  <xacro:property name="wc_h_shelf_ydim" value="${wc_frame_ydim}"/>
+  <xacro:property name="wc_h_shelf_zdim" value="${wc_shelf_thickness}"/>
+  <xacro:property name="wc_h_shelf_mass" value="10"/>
+
   <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/enhet-art-90481556 -->
   <xacro:property name="wc_door_xdim" value="${thickness}"/>
   <xacro:property name="wc_door_zdim" value="${wc_frame_zdim-tolerance}"/>
@@ -43,7 +57,7 @@
   <!-- Base cabinet -->
   <xacro:property name="bc_base_xdim" value="0.6"/>
   <xacro:property name="bc_base_ydim" value="1.8"/>
-  <xacro:property name="bc_base_zdim" value="0.08"/>
+  <xacro:property name="bc_base_zdim" value="0.12"/>
   <xacro:property name="bc_base_mass" value="20"/>
 
   <!-- Frame refers to the main part of the cabinet -->
@@ -53,6 +67,17 @@
 
   <xacro:property name="bc_column_ydim" value="0.4"/>
   <xacro:property name="bc_row_zdim" value="${bc_frame_zdim/4}"/>
+
+  <xacro:property name="bc_shelf_thickness" value="0.02"/>
+  <xacro:property name="bc_v_shelf_xdim" value="${bc_frame_xdim}"/>
+  <xacro:property name="bc_v_shelf_ydim" value="${bc_shelf_thickness*2}"/>
+  <xacro:property name="bc_v_shelf_zdim" value="${bc_frame_zdim}"/>
+  <xacro:property name="bc_v_shelf_mass" value="10"/>
+
+  <xacro:property name="bc_h_shelf_xdim" value="${bc_frame_xdim}"/>
+  <xacro:property name="bc_h_shelf_ydim" value="${bc_column_ydim*2}"/>
+  <xacro:property name="bc_h_shelf_zdim" value="${bc_shelf_thickness}"/>
+  <xacro:property name="bc_h_shelf_mass" value="10"/>
 
   <xacro:property name="bc_frame_back_panel_xdim" value="${thickness}"/>
   <xacro:property name="bc_frame_back_panel_ydim" value="${bc_frame_ydim}"/>
@@ -85,7 +110,7 @@
   <!-- Drawer interior, bc_frame size: X60cm Y40cm Z20cm -->
   <!-- https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-70271111-->
   <xacro:property name="drawer_interior_xdim" value="0.542"/>
-  <xacro:property name="drawer_interior_ydim" value="0.364"/>
+  <xacro:property name="drawer_interior_ydim" value="0.35"/>
   <xacro:property name="drawer_interior_zdim" value="0.144"/>
 
   <xacro:property name="drawer_side_panel_xdim" value="${drawer_interior_xdim}"/>
@@ -105,8 +130,8 @@
 
   <!-- https://www.ikea.com.hk/en/products/kitchen-fronts/kitchen-fronts-cover-panels-and-plinth/askersund-art-50331776-->
   <xacro:property name="pull_out_front_panel_xdim" value="${thickness}"/>
-  <xacro:property name="pull_out_front_panel_ydim" value="0.197"/>
-  <xacro:property name="pull_out_front_panel_zdim" value="0.797"/>
+  <xacro:property name="pull_out_front_panel_ydim" value="${0.2-tolerance}"/>
+  <xacro:property name="pull_out_front_panel_zdim" value="${bc_frame_zdim-tolerance}"/>
   <xacro:property name="pull_out_front_panel_mass" value="1.66"/>
 
   <!-- https://www.ikea.com.hk/en/products/kitchen-fixed-interiors/kitchen-fixed-interiors/maximera-art-80297276-->

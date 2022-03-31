@@ -4,11 +4,13 @@
   <!-- Assembles -->
   <xacro:macro name="wc_frame">
     <xacro:box_link prefix="wc_frame" link_name="back_panel" mass="${wc_frame_back_panel_mass}"
-                    xdim="${wc_frame_back_panel_xdim}" ydim="${wc_frame_back_panel_ydim}" zdim="${wc_frame_back_panel_zdim}"
+                    xdim="${wc_frame_back_panel_xdim}" ydim="${wc_frame_back_panel_ydim}"
+                    zdim="${wc_frame_back_panel_zdim}"
                     material="White"/>
 
     <xacro:box_link prefix="wc_frame" link_name="left_side_panel" mass="${wc_frame_side_panel_mass}"
-                    xdim="${wc_frame_side_panel_xdim}" ydim="${wc_frame_side_panel_ydim}" zdim="${wc_frame_side_panel_zdim}"
+                    xdim="${wc_frame_side_panel_xdim}" ydim="${wc_frame_side_panel_ydim}"
+                    zdim="${wc_frame_side_panel_zdim}"
                     material="White"/>
 
     <joint name="wc_frame_left_side_panel_joint" type="fixed">
@@ -19,7 +21,8 @@
     </joint>
 
     <xacro:box_link prefix="wc_frame" link_name="right_side_panel" mass="${wc_frame_side_panel_mass}"
-                    xdim="${wc_frame_side_panel_xdim}" ydim="${wc_frame_side_panel_ydim}" zdim="${wc_frame_side_panel_zdim}"
+                    xdim="${wc_frame_side_panel_xdim}" ydim="${wc_frame_side_panel_ydim}"
+                    zdim="${wc_frame_side_panel_zdim}"
                     material="White"/>
 
     <joint name="wc_frame_right_side_panel_joint" type="fixed">
@@ -50,6 +53,40 @@
       <parent link="wc_frame_back_panel"/>
       <child link="wc_frame_bottom_panel"/>
     </joint>
+
+    <!-- Interior shelf -->
+    <!-- Vertical -->
+    <xacro:box_link prefix="wc_frame" link_name="c1_v_shelf" mass="${wc_v_shelf_mass}"
+                    xdim="${wc_v_shelf_xdim}" ydim="${wc_v_shelf_ydim}" zdim="${wc_v_shelf_zdim}"
+                    material="White"/>
+
+    <joint name="wc_frame_c1_v_shelf_joint" type="fixed">
+      <origin xyz="${(wc_frame_xdim-wc_frame_back_panel_xdim)/2} ${-wc_frame_ydim/2+wc_column_ydim} 0"/>
+      <parent link="wc_frame_back_panel"/>
+      <child link="wc_frame_c1_v_shelf"/>
+    </joint>
+
+    <!-- Horizontal -->
+    <xacro:box_link prefix="wc_frame" link_name="h1_shelf" mass="${wc_h_shelf_mass}"
+                    xdim="${wc_h_shelf_xdim}" ydim="${wc_h_shelf_ydim}" zdim="${wc_h_shelf_zdim}"
+                    material="White"/>
+
+    <joint name="wc_frame_h1_shelf_joint" type="fixed">
+      <origin xyz="${(wc_frame_xdim-wc_frame_back_panel_xdim)/2} 0 ${wc_frame_zdim/2-0.34}"/>
+      <parent link="wc_frame_back_panel"/>
+      <child link="wc_frame_h1_shelf"/>
+    </joint>
+
+    <xacro:box_link prefix="wc_frame" link_name="h2_shelf" mass="${wc_h_shelf_mass}"
+                    xdim="${wc_h_shelf_xdim}" ydim="${wc_h_shelf_ydim}" zdim="${wc_h_shelf_zdim}"
+                    material="White"/>
+
+    <joint name="wc_frame_h2_shelf_joint" type="fixed">
+      <origin xyz="${(wc_frame_xdim-wc_frame_back_panel_xdim)/2} 0 ${wc_frame_zdim/2-0.54}"/>
+      <parent link="wc_frame_back_panel"/>
+      <child link="wc_frame_h2_shelf"/>
+    </joint>
+
   </xacro:macro>
 
   <xacro:macro name="wall_cabinet" params="prefix connected_to:='' xyz:='0 0 0' rpy:='0 0 0'">
@@ -67,14 +104,15 @@
     <!-- The +x direction points from the back of the cabinet to the front -->
     <!-- Rightmost 1st column -->
     <xacro:door prefix="${prefix}" name="c1_door" parent="wc_frame_back_panel"
-                xyz="${wc_frame_side_panel_xdim-wc_door_xdim/2} ${-wc_frame_back_panel_ydim/2} 0"
-                mass="${door_mass}" xdim="${wc_door_xdim}" ydim="${0.6-tolerance}" zdim="${wc_door_zdim}"
+                xyz="${wc_frame_xdim-(wc_frame_back_panel_xdim-wc_door_xdim)/2} ${-wc_frame_back_panel_ydim/2} 0"
+                mass="${door_mass}" xdim="${wc_door_xdim}" ydim="${wc_column_ydim-tolerance}" zdim="${wc_door_zdim}"
                 hinge="right" handle_xyz="0.008 0.48 -0.35" handle_rpy="0 0 0"/>
 
     <!-- Rightmost 2nd column -->
     <xacro:door prefix="${prefix}" name="c2_door" parent="wc_frame_back_panel"
-                xyz="${wc_frame_side_panel_xdim-wc_door_xdim/2} ${wc_frame_back_panel_ydim/2} 0"
-                mass="${door_mass}" xdim="${wc_door_xdim}" ydim="${0.4-tolerance}" zdim="${wc_door_zdim}"
+                xyz="${wc_frame_xdim-(wc_frame_back_panel_xdim-wc_door_xdim)/2} ${wc_frame_back_panel_ydim/2} 0"
+                mass="${door_mass}" xdim="${wc_door_xdim}" ydim="${wc_frame_ydim-wc_column_ydim-tolerance}"
+                zdim="${wc_door_zdim}"
                 hinge="left" handle_xyz="0.008 -0.28 -0.35" handle_rpy="0 0 0"/>
   </xacro:macro>
 </robot>

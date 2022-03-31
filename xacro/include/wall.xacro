@@ -5,7 +5,7 @@
   <xacro:macro name="wall">
     <xacro:box_link prefix="lab" link_name="left_wall" mass="100"
                     xdim="${space_xdim}" ydim="${wall_thickness}" zdim="${space_zdim}"
-                    material="Green"/>
+                    material="LightGreen"/>
 
     <joint name="left_wall_joint" type="fixed">
       <origin xyz="0 ${(space_ydim+wall_thickness)/2} ${space_zdim/2}" rpy="0 0 0"/>
@@ -15,7 +15,7 @@
 
     <xacro:box_link prefix="lab" link_name="back_wall" mass="100"
                     xdim="${wall_thickness}" ydim="${space_ydim}" zdim="${space_zdim}"
-                    material="Green"/>
+                    material="LightGreen"/>
 
     <joint name="back_wall_joint" type="fixed">
       <origin xyz="${-(space_xdim+wall_thickness)/2} 0 ${space_zdim/2}" rpy="0 0 0"/>

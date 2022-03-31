@@ -16,10 +16,10 @@
     <link name="${prefix}_${link_name}">
       <visual>
         <xacro:if value="${hinge == 'right'}">
-          <origin xyz="${xdim/2} ${ydim/2} 0"/>
+          <origin xyz="0 ${ydim/2} 0"/>
         </xacro:if>
         <xacro:if value="${hinge == 'left'}">
-          <origin xyz="${xdim/2} -${ydim/2} 0"/>
+          <origin xyz="0 ${-ydim/2} 0"/>
         </xacro:if>
         <xacro:if value="${hinge == 'none'}">
           <origin xyz="0 0 0"/>
@@ -32,10 +32,10 @@
 
       <collision>
         <xacro:if value="${hinge == 'right'}">
-          <origin xyz="${xdim/2} ${ydim/2} 0"/>
+          <origin xyz="0 ${ydim/2} 0"/>
         </xacro:if>
         <xacro:if value="${hinge == 'left'}">
-          <origin xyz="${xdim/2} -${ydim/2} 0"/>
+          <origin xyz="0 ${-ydim/2} 0"/>
         </xacro:if>
         <xacro:if value="${hinge == 'none'}">
           <origin xyz="0 0 0"/>
@@ -47,10 +47,10 @@
 
       <inertial>
         <xacro:if value="${hinge == 'right'}">
-          <origin xyz="${xdim/2} ${ydim/2} 0"/>
+          <origin xyz="0 ${ydim/2} 0"/>
         </xacro:if>
         <xacro:if value="${hinge == 'left'}">
-          <origin xyz="${xdim/2} -${ydim/2} 0"/>
+          <origin xyz="0 ${-ydim/2} 0"/>
         </xacro:if>
         <xacro:if value="${hinge == 'none'}">
           <origin xyz="0 0 0"/>

@@ -12,7 +12,7 @@
   <material name="Oak">
     <color rgba="0.89 0.81 0.69 1.0"/>
   </material>
-  <material name="Green">
+  <material name="LightGreen">
     <color rgba="0.8 1 0.8 1.0"/>
   </material>
 </robot>

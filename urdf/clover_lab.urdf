@@ -16,7 +16,7 @@
   <material name="Oak">
     <color rgba="0.89 0.81 0.69 1.0"/>
   </material>
-  <material name="Green">
+  <material name="LightGreen">
     <color rgba="0.8 1 0.8 1.0"/>
   </material>
   <!-- Using meter, kg -->
@@ -25,20 +25,20 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.6 1.8 0.08"/>
+        <box size="0.6 1.8 0.12"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.6 1.8 0.08"/>
+        <box size="0.6 1.8 0.12"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="20"/>
-      <inertia ixx="5.410666666666668" ixy="0" ixz="0" iyy="0.6106666666666667" iyz="0" izz="6.0"/>
+      <inertia ixx="5.424" ixy="0" ixz="0" iyy="0.624" iyz="0" izz="6.0"/>
     </inertial>
   </link>
   <link name="bc_frame_left_side_panel">
@@ -62,7 +62,7 @@
     </inertial>
   </link>
   <joint name="bc_frame_left_side_panel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.892 0.44"/>
+    <origin rpy="0 0 0" xyz="0 0.892 0.46"/>
     <parent link="bc_frame_base_link"/>
     <child link="bc_frame_left_side_panel"/>
   </joint>
@@ -87,7 +87,7 @@
     </inertial>
   </link>
   <joint name="bc_frame_right_side_panel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 -0.892 0.44"/>
+    <origin rpy="0 0 0" xyz="0 -0.892 0.46"/>
     <parent link="bc_frame_base_link"/>
     <child link="bc_frame_right_side_panel"/>
   </joint>
@@ -112,7 +112,7 @@
     </inertial>
   </link>
   <joint name="bc_frame_back_panel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="-0.292 0 0.44"/>
+    <origin rpy="0 0 0" xyz="-0.292 0 0.46"/>
     <parent link="bc_frame_base_link"/>
     <child link="bc_frame_back_panel"/>
   </joint>
@@ -137,26 +137,151 @@
     </inertial>
   </link>
   <joint name="bc_frame_worktop_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.8540000000000001"/>
+    <origin xyz="0 0 0.874"/>
     <parent link="bc_frame_base_link"/>
     <child link="bc_frame_worktop"/>
   </joint>
+  <link name="bc_frame_c1_v_shelf">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.04 0.8"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.04 0.8"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="0.5346666666666668" ixy="0" ixz="0" iyy="0.8333333333333334" iyz="0" izz="0.3013333333333333"/>
+    </inertial>
+  </link>
+  <joint name="bc_frame_c1_v_shelf_joint" type="fixed">
+    <origin xyz="0 -0.5 0.46"/>
+    <parent link="bc_frame_base_link"/>
+    <child link="bc_frame_c1_v_shelf"/>
+  </joint>
+  <link name="bc_frame_c2_v_shelf">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.04 0.8"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.04 0.8"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="0.5346666666666668" ixy="0" ixz="0" iyy="0.8333333333333334" iyz="0" izz="0.3013333333333333"/>
+    </inertial>
+  </link>
+  <joint name="bc_frame_c2_v_shelf_joint" type="fixed">
+    <origin xyz="0 -0.29999999999999993 0.46"/>
+    <parent link="bc_frame_base_link"/>
+    <child link="bc_frame_c2_v_shelf"/>
+  </joint>
+  <link name="bc_frame_c3_v_shelf">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.04 0.8"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.04 0.8"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="0.5346666666666668" ixy="0" ixz="0" iyy="0.8333333333333334" iyz="0" izz="0.3013333333333333"/>
+    </inertial>
+  </link>
+  <joint name="bc_frame_c3_v_shelf_joint" type="fixed">
+    <origin xyz="0 0.09999999999999998 0.46"/>
+    <parent link="bc_frame_base_link"/>
+    <child link="bc_frame_c3_v_shelf"/>
+  </joint>
+  <link name="bc_frame_h1_shelf">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.8 0.02"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.8 0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="0.5336666666666667" ixy="0" ixz="0" iyy="0.30033333333333334" iyz="0" izz="0.8333333333333334"/>
+    </inertial>
+  </link>
+  <joint name="bc_frame_h1_shelf_joint" type="fixed">
+    <origin xyz="0 0.5000000000000001 0.6100000000000001"/>
+    <parent link="bc_frame_base_link"/>
+    <child link="bc_frame_h1_shelf"/>
+  </joint>
+  <link name="bc_frame_h2_shelf">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.8 0.02"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.8 0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="0.5336666666666667" ixy="0" ixz="0" iyy="0.30033333333333334" iyz="0" izz="0.8333333333333334"/>
+    </inertial>
+  </link>
+  <joint name="bc_frame_h2_shelf_joint" type="fixed">
+    <origin xyz="0 0.5000000000000001 0.39000000000000007"/>
+    <parent link="bc_frame_base_link"/>
+    <child link="bc_frame_h2_shelf"/>
+  </joint>
   <link name="base_cabinet_c1_door">
     <visual>
-      <origin xyz="0.008 0.198 0"/>
+      <origin xyz="0 0.198 0"/>
       <geometry>
         <box size="0.016 0.396 0.796"/>
       </geometry>
       <material name="Oak"/>
     </visual>
     <collision>
-      <origin xyz="0.008 0.198 0"/>
+      <origin xyz="0 0.198 0"/>
       <geometry>
         <box size="0.016 0.396 0.796"/>
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="0.008 0.198 0"/>
+      <origin xyz="0 0.198 0"/>
       <mass value="3.31"/>
       <inertia ixx="0.21802749333333335" ixy="0" ixz="0" iyy="0.1748430266666667" iyz="0" izz="0.04332569333333334"/>
     </inertial>
@@ -166,7 +291,7 @@
     <child link="base_cabinet_c1_door"/>
     <limit effort="10" lower="0" upper="1.5707963267948966" velocity="1"/>
     <dynamics damping="100" friction="0.1"/>
-    <origin xyz="0.3 -0.884 0.44"/>
+    <origin xyz="0.308 -0.9 0.46"/>
     <axis xyz="0 0 -1"/>
   </joint>
   <link name="base_cabinet_c1_door_handle_link">
@@ -198,20 +323,20 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.016 0.197 0.797"/>
+        <box size="0.016 0.196 0.796"/>
       </geometry>
       <material name="Oak"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.016 0.197 0.797"/>
+        <box size="0.016 0.196 0.796"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="1.66"/>
-      <inertia ixx="0.09323915666666666" ixy="0" ixz="0" iyy="0.08790599166666667" iyz="0" izz="0.005403991666666667"/>
+      <inertia ixx="0.09296442666666667" ixy="0" ixz="0" iyy="0.08768562666666668" iyz="0" izz="0.005349626666666667"/>
     </inertial>
   </link>
   <joint name="base_cabinet_c2_pull_out_front_panel_joint" type="prismatic">
@@ -219,7 +344,7 @@
     <child link="base_cabinet_c2_pull_out_front_panel"/>
     <limit effort="10" lower="0" upper="0.542" velocity="1"/>
     <dynamics damping="100" friction="0.1"/>
-    <origin xyz="0.308 -0.41600000000000004                        0.44"/>
+    <origin xyz="0.308                          -0.4                          0.46"/>
     <axis xyz="1 0 0"/>
   </joint>
   <link name="base_cabinet_c2_pull_out_handle_link">
@@ -245,7 +370,7 @@
   <joint name="base_cabinet_c2_pull_out_handle_joint" type="fixed">
     <parent link="base_cabinet_c2_pull_out_front_panel"/>
     <child link="base_cabinet_c2_pull_out_handle_link"/>
-    <origin rpy="0 0 0" xyz="0.008 0 0.34850000000000003"/>
+    <origin rpy="0 0 0" xyz="0.008 0 0.34800000000000003"/>
   </joint>
   <!--    <xacro:box_link prefix="${prefix}" link_name="${name}_bottom_panel" mass="${drawer_bottom_panel_mass}"-->
   <!--                    xdim="${drawer_bottom_panel_xdim}" ydim="${drawer_bottom_panel_ydim}"-->
@@ -303,7 +428,7 @@
     <child link="base_cabinet_c3_r1_drawer_front_panel"/>
     <limit effort="10" lower="0" upper="0.542" velocity="1"/>
     <dynamics damping="100" friction="0.1"/>
-    <origin xyz="0.308 -0.11599999999999999                      0.74"/>
+    <origin xyz="0.308                        -0.09999999999999998                        0.76"/>
     <axis xyz="1 0 0"/>
   </joint>
   <link name="base_cabinet_c3_r1_drawer_handle_link">
@@ -335,20 +460,20 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.542 0.364 0.016"/>
+        <box size="0.542 0.35 0.016"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.542 0.364 0.016"/>
+        <box size="0.542 0.35 0.016"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="3"/>
-      <inertia ixx="0.033188" ixy="0" ixz="0" iyy="0.073505" iyz="0" izz="0.10656500000000001"/>
+      <inertia ixx="0.030688999999999998" ixy="0" ixz="0" iyy="0.073505" iyz="0" izz="0.104066"/>
     </inertial>
   </link>
   <joint name="base_cabinet_c3_r1_drawer_bottom_panel_joint" type="fixed">
@@ -410,20 +535,20 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.016 0.364 0.144"/>
+        <box size="0.016 0.35 0.144"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.016 0.364 0.144"/>
+        <box size="0.016 0.35 0.144"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="2"/>
-      <inertia ixx="0.025538666666666668" ixy="0" ixz="0" iyy="0.003498666666666666" iyz="0" izz="0.022125333333333334"/>
+      <inertia ixx="0.023872666666666664" ixy="0" ixz="0" iyy="0.003498666666666666" iyz="0" izz="0.020459333333333333"/>
     </inertial>
   </link>
   <joint name="base_cabinet_c3_r1_drawer_back_panel_joint" type="fixed">
@@ -456,7 +581,7 @@
     <child link="base_cabinet_c3_r2_drawer_front_panel"/>
     <limit effort="10" lower="0" upper="0.542" velocity="1"/>
     <dynamics damping="100" friction="0.1"/>
-    <origin xyz="0.308 -0.11599999999999999                      0.54"/>
+    <origin xyz="0.308                        -0.09999999999999998                        0.56"/>
     <axis xyz="1 0 0"/>
   </joint>
   <link name="base_cabinet_c3_r2_drawer_handle_link">
@@ -488,20 +613,20 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.542 0.364 0.016"/>
+        <box size="0.542 0.35 0.016"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.542 0.364 0.016"/>
+        <box size="0.542 0.35 0.016"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="3"/>
-      <inertia ixx="0.033188" ixy="0" ixz="0" iyy="0.073505" iyz="0" izz="0.10656500000000001"/>
+      <inertia ixx="0.030688999999999998" ixy="0" ixz="0" iyy="0.073505" iyz="0" izz="0.104066"/>
     </inertial>
   </link>
   <joint name="base_cabinet_c3_r2_drawer_bottom_panel_joint" type="fixed">
@@ -563,20 +688,20 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.016 0.364 0.144"/>
+        <box size="0.016 0.35 0.144"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.016 0.364 0.144"/>
+        <box size="0.016 0.35 0.144"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="2"/>
-      <inertia ixx="0.025538666666666668" ixy="0" ixz="0" iyy="0.003498666666666666" iyz="0" izz="0.022125333333333334"/>
+      <inertia ixx="0.023872666666666664" ixy="0" ixz="0" iyy="0.003498666666666666" iyz="0" izz="0.020459333333333333"/>
     </inertial>
   </link>
   <joint name="base_cabinet_c3_r2_drawer_back_panel_joint" type="fixed">
@@ -609,7 +734,7 @@
     <child link="base_cabinet_c3_r3_drawer_front_panel"/>
     <limit effort="10" lower="0" upper="0.542" velocity="1"/>
     <dynamics damping="100" friction="0.1"/>
-    <origin xyz="0.308 -0.11599999999999999                      0.34"/>
+    <origin xyz="0.308                        -0.09999999999999998                        0.36000000000000004"/>
     <axis xyz="1 0 0"/>
   </joint>
   <link name="base_cabinet_c3_r3_drawer_handle_link">
@@ -641,20 +766,20 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.542 0.364 0.016"/>
+        <box size="0.542 0.35 0.016"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.542 0.364 0.016"/>
+        <box size="0.542 0.35 0.016"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="3"/>
-      <inertia ixx="0.033188" ixy="0" ixz="0" iyy="0.073505" iyz="0" izz="0.10656500000000001"/>
+      <inertia ixx="0.030688999999999998" ixy="0" ixz="0" iyy="0.073505" iyz="0" izz="0.104066"/>
     </inertial>
   </link>
   <joint name="base_cabinet_c3_r3_drawer_bottom_panel_joint" type="fixed">
@@ -716,20 +841,20 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.016 0.364 0.144"/>
+        <box size="0.016 0.35 0.144"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.016 0.364 0.144"/>
+        <box size="0.016 0.35 0.144"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="2"/>
-      <inertia ixx="0.025538666666666668" ixy="0" ixz="0" iyy="0.003498666666666666" iyz="0" izz="0.022125333333333334"/>
+      <inertia ixx="0.023872666666666664" ixy="0" ixz="0" iyy="0.003498666666666666" iyz="0" izz="0.020459333333333333"/>
     </inertial>
   </link>
   <joint name="base_cabinet_c3_r3_drawer_back_panel_joint" type="fixed">
@@ -762,7 +887,7 @@
     <child link="base_cabinet_c3_r4_drawer_front_panel"/>
     <limit effort="10" lower="0" upper="0.542" velocity="1"/>
     <dynamics damping="100" friction="0.1"/>
-    <origin xyz="0.308 -0.11599999999999999                      0.14"/>
+    <origin xyz="0.308                        -0.09999999999999998                        0.15999999999999992"/>
     <axis xyz="1 0 0"/>
   </joint>
   <link name="base_cabinet_c3_r4_drawer_handle_link">
@@ -794,20 +919,20 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.542 0.364 0.016"/>
+        <box size="0.542 0.35 0.016"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.542 0.364 0.016"/>
+        <box size="0.542 0.35 0.016"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="3"/>
-      <inertia ixx="0.033188" ixy="0" ixz="0" iyy="0.073505" iyz="0" izz="0.10656500000000001"/>
+      <inertia ixx="0.030688999999999998" ixy="0" ixz="0" iyy="0.073505" iyz="0" izz="0.104066"/>
     </inertial>
   </link>
   <joint name="base_cabinet_c3_r4_drawer_bottom_panel_joint" type="fixed">
@@ -869,20 +994,20 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.016 0.364 0.144"/>
+        <box size="0.016 0.35 0.144"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.016 0.364 0.144"/>
+        <box size="0.016 0.35 0.144"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="2"/>
-      <inertia ixx="0.025538666666666668" ixy="0" ixz="0" iyy="0.003498666666666666" iyz="0" izz="0.022125333333333334"/>
+      <inertia ixx="0.023872666666666664" ixy="0" ixz="0" iyy="0.003498666666666666" iyz="0" izz="0.020459333333333333"/>
     </inertial>
   </link>
   <joint name="base_cabinet_c3_r4_drawer_back_panel_joint" type="fixed">
@@ -892,20 +1017,20 @@
   </joint>
   <link name="base_cabinet_c4_door">
     <visual>
-      <origin xyz="0.008 0.198 0"/>
+      <origin xyz="0 0.198 0"/>
       <geometry>
         <box size="0.016 0.396 0.796"/>
       </geometry>
       <material name="Oak"/>
     </visual>
     <collision>
-      <origin xyz="0.008 0.198 0"/>
+      <origin xyz="0 0.198 0"/>
       <geometry>
         <box size="0.016 0.396 0.796"/>
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="0.008 0.198 0"/>
+      <origin xyz="0 0.198 0"/>
       <mass value="3.31"/>
       <inertia ixx="0.21802749333333335" ixy="0" ixz="0" iyy="0.1748430266666667" iyz="0" izz="0.04332569333333334"/>
     </inertial>
@@ -915,7 +1040,7 @@
     <child link="base_cabinet_c4_door"/>
     <limit effort="10" lower="0" upper="1.5707963267948966" velocity="1"/>
     <dynamics damping="100" friction="0.1"/>
-    <origin xyz="0.3 0.08399999999999996 0.44"/>
+    <origin xyz="0.308                      0.09999999999999998                      0.46"/>
     <axis xyz="0 0 -1"/>
   </joint>
   <link name="base_cabinet_c4_door_handle_link">
@@ -945,20 +1070,20 @@
   </joint>
   <link name="base_cabinet_c5_door">
     <visual>
-      <origin xyz="0.008 -0.198 0"/>
+      <origin xyz="0 -0.198 0"/>
       <geometry>
         <box size="0.016 0.396 0.796"/>
       </geometry>
       <material name="Oak"/>
     </visual>
     <collision>
-      <origin xyz="0.008 -0.198 0"/>
+      <origin xyz="0 -0.198 0"/>
       <geometry>
         <box size="0.016 0.396 0.796"/>
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="0.008 -0.198 0"/>
+      <origin xyz="0 -0.198 0"/>
       <mass value="3.31"/>
       <inertia ixx="0.21802749333333335" ixy="0" ixz="0" iyy="0.1748430266666667" iyz="0" izz="0.04332569333333334"/>
     </inertial>
@@ -968,7 +1093,7 @@
     <child link="base_cabinet_c5_door"/>
     <limit effort="10" lower="0" upper="1.5707963267948966" velocity="1"/>
     <dynamics damping="100" friction="0.1"/>
-    <origin xyz="0.3 0.884 0.44"/>
+    <origin xyz="0.308                      0.9                      0.46"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="base_cabinet_c5_door_handle_link">
@@ -1020,24 +1145,24 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.374 0.016 0.81"/>
+        <box size="0.39 0.016 0.81"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.374 0.016 0.81"/>
+        <box size="0.39 0.016 0.81"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="10"/>
-      <inertia ixx="0.5469633333333335" ixy="0" ixz="0" iyy="0.6633133333333334" iyz="0" izz="0.11677666666666668"/>
+      <inertia ixx="0.5469633333333335" ixy="0" ixz="0" iyy="0.6735000000000001" iyz="0" izz="0.12696333333333334"/>
     </inertial>
   </link>
   <joint name="wc_frame_left_side_panel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.179                    0.492 0"/>
+    <origin rpy="0 0 0" xyz="0.187                    0.492 0"/>
     <parent link="wc_frame_back_panel"/>
     <child link="wc_frame_left_side_panel"/>
   </joint>
@@ -1045,24 +1170,24 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.374 0.016 0.81"/>
+        <box size="0.39 0.016 0.81"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.374 0.016 0.81"/>
+        <box size="0.39 0.016 0.81"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="10"/>
-      <inertia ixx="0.5469633333333335" ixy="0" ixz="0" iyy="0.6633133333333334" iyz="0" izz="0.11677666666666668"/>
+      <inertia ixx="0.5469633333333335" ixy="0" ixz="0" iyy="0.6735000000000001" iyz="0" izz="0.12696333333333334"/>
     </inertial>
   </link>
   <joint name="wc_frame_right_side_panel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.179                    -0.492 0"/>
+    <origin rpy="0 0 0" xyz="0.187                    -0.492 0"/>
     <parent link="wc_frame_back_panel"/>
     <child link="wc_frame_right_side_panel"/>
   </joint>
@@ -1070,24 +1195,24 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.374 1 0.016"/>
+        <box size="0.39 1 0.016"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.374 1 0.016"/>
+        <box size="0.39 1 0.016"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="20"/>
-      <inertia ixx="1.6670933333333335" ixy="0" ixz="0" iyy="0.23355333333333336" iyz="0" izz="1.8997933333333334"/>
+      <inertia ixx="1.6670933333333335" ixy="0" ixz="0" iyy="0.2539266666666667" iyz="0" izz="1.9201666666666666"/>
     </inertial>
   </link>
   <joint name="wc_frame_top_panel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.179 0                    0.397"/>
+    <origin rpy="0 0 0" xyz="0.187 0                    0.397"/>
     <parent link="wc_frame_back_panel"/>
     <child link="wc_frame_top_panel"/>
   </joint>
@@ -1095,43 +1220,118 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.374 1 0.016"/>
+        <box size="0.39 1 0.016"/>
       </geometry>
       <material name="White"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <box size="0.374 1 0.016"/>
+        <box size="0.39 1 0.016"/>
       </geometry>
     </collision>
     <inertial>
       <origin xyz="0 0 0"/>
       <mass value="20"/>
-      <inertia ixx="1.6670933333333335" ixy="0" ixz="0" iyy="0.23355333333333336" iyz="0" izz="1.8997933333333334"/>
+      <inertia ixx="1.6670933333333335" ixy="0" ixz="0" iyy="0.2539266666666667" iyz="0" izz="1.9201666666666666"/>
     </inertial>
   </link>
   <joint name="wc_frame_bottom_panel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.179 0                    -0.397"/>
+    <origin rpy="0 0 0" xyz="0.187 0                    -0.397"/>
     <parent link="wc_frame_back_panel"/>
     <child link="wc_frame_bottom_panel"/>
   </joint>
+  <link name="wc_frame_c1_v_shelf">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.39 0.04 0.81"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.39 0.04 0.81"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="0.5480833333333335" ixy="0" ixz="0" iyy="0.6735000000000001" iyz="0" izz="0.12808333333333333"/>
+    </inertial>
+  </link>
+  <joint name="wc_frame_c1_v_shelf_joint" type="fixed">
+    <origin xyz="0.187 0.09999999999999998 0"/>
+    <parent link="wc_frame_back_panel"/>
+    <child link="wc_frame_c1_v_shelf"/>
+  </joint>
+  <link name="wc_frame_h1_shelf">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.39 1 0.02"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.39 1 0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="0.8336666666666667" ixy="0" ixz="0" iyy="0.12708333333333335" iyz="0" izz="0.9600833333333333"/>
+    </inertial>
+  </link>
+  <joint name="wc_frame_h1_shelf_joint" type="fixed">
+    <origin xyz="0.187 0 0.065"/>
+    <parent link="wc_frame_back_panel"/>
+    <child link="wc_frame_h1_shelf"/>
+  </joint>
+  <link name="wc_frame_h2_shelf">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.39 1 0.02"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.39 1 0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="10"/>
+      <inertia ixx="0.8336666666666667" ixy="0" ixz="0" iyy="0.12708333333333335" iyz="0" izz="0.9600833333333333"/>
+    </inertial>
+  </link>
+  <joint name="wc_frame_h2_shelf_joint" type="fixed">
+    <origin xyz="0.187 0 -0.135"/>
+    <parent link="wc_frame_back_panel"/>
+    <child link="wc_frame_h2_shelf"/>
+  </joint>
   <link name="wall_cabinet_c1_door">
     <visual>
-      <origin xyz="0.008 0.298 0"/>
+      <origin xyz="0 0.298 0"/>
       <geometry>
         <box size="0.016 0.596 0.806"/>
       </geometry>
       <material name="Oak"/>
     </visual>
     <collision>
-      <origin xyz="0.008 0.298 0"/>
+      <origin xyz="0 0.298 0"/>
       <geometry>
         <box size="0.016 0.596 0.806"/>
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="0.008 0.298 0"/>
+      <origin xyz="0 0.298 0"/>
       <mass value="3.31"/>
       <inertia ixx="0.2771716766666667" ixy="0" ixz="0" iyy="0.1792618766666667" iyz="0" izz="0.09805102666666665"/>
     </inertial>
@@ -1141,7 +1341,7 @@
     <child link="wall_cabinet_c1_door"/>
     <limit effort="10" lower="0" upper="1.5707963267948966" velocity="1"/>
     <dynamics damping="100" friction="0.1"/>
-    <origin xyz="0.366 -0.5 0"/>
+    <origin xyz="0.39 -0.5 0"/>
     <axis xyz="0 0 -1"/>
   </joint>
   <link name="wall_cabinet_c1_door_handle_link">
@@ -1171,20 +1371,20 @@
   </joint>
   <link name="wall_cabinet_c2_door">
     <visual>
-      <origin xyz="0.008 -0.198 0"/>
+      <origin xyz="0 -0.198 0"/>
       <geometry>
         <box size="0.016 0.396 0.806"/>
       </geometry>
       <material name="Oak"/>
     </visual>
     <collision>
-      <origin xyz="0.008 -0.198 0"/>
+      <origin xyz="0 -0.198 0"/>
       <geometry>
         <box size="0.016 0.396 0.806"/>
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="0.008 -0.198 0"/>
+      <origin xyz="0 -0.198 0"/>
       <mass value="3.31"/>
       <inertia ixx="0.22244634333333338" ixy="0" ixz="0" iyy="0.1792618766666667" iyz="0" izz="0.04332569333333334"/>
     </inertial>
@@ -1194,7 +1394,7 @@
     <child link="wall_cabinet_c2_door"/>
     <limit effort="10" lower="0" upper="1.5707963267948966" velocity="1"/>
     <dynamics damping="100" friction="0.1"/>
-    <origin xyz="0.366 0.5 0"/>
+    <origin xyz="0.39 0.5 0"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="wall_cabinet_c2_door_handle_link">
@@ -1224,7 +1424,7 @@
   </joint>
   <link name="world"/>
   <joint name="base_cabinet_reference" type="fixed">
-    <origin rpy="0 0 0" xyz="-2.7 0.2 0.04"/>
+    <origin rpy="0 0 0" xyz="-2.7 0.2 0.06"/>
     <parent link="world"/>
     <child link="bc_frame_base_link"/>
   </joint>
@@ -1239,7 +1439,7 @@
       <geometry>
         <box size="6 0.1 2.7"/>
       </geometry>
-      <material name="Green"/>
+      <material name="LightGreen"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
@@ -1264,7 +1464,7 @@
       <geometry>
         <box size="0.1 3.2 2.7"/>
       </geometry>
-      <material name="Green"/>
+      <material name="LightGreen"/>
     </visual>
     <collision>
       <origin xyz="0 0 0"/>
