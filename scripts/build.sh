@@ -30,11 +30,13 @@ if [ "$curr_folder" != "scripts" ]; then
   exit 1
 fi
 
-models=("clover_lab" "base_cabinet" "wall_cabinet")
+#models=("clover_lab" "base_cabinet" "wall_cabinet")
+models=("clover_lab")
 
 for model in "${models[@]}"; do
 
   build_urdf "$model" none
+  build_urdf "$model" mujoco
 
 done
 
