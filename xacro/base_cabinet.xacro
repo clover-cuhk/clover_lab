@@ -182,14 +182,14 @@
                 hinge="right" handle_xyz="0.008 0.35 0.28" handle_rpy="${M_PI/2} 0 0"/>
 
     <xacro:drawer_interior prefix="${prefix}" name="c1_r1_drawer" parent="bc_frame_base_link"
-                           xyz="${(bc_frame_xdim-c1_r1_drawer_interior_xdim)/2} ${(-bc_frame_ydim+bc_column_ydim)/2}
+                           xyz="${(bc_frame_xdim-thickness)/2} ${(-bc_frame_ydim+bc_column_ydim)/2}
                                 ${bc_base_zdim+0.43+c1_r1_drawer_interior_zdim/2}"
                            xdim="${c1_r1_drawer_interior_xdim}" ydim="${c1_r1_drawer_interior_ydim}"
                            zdim="${c1_r1_drawer_interior_zdim}"
                            has_front_panel="true" has_side_panel="false" has_back_panel="false"/>
 
     <xacro:drawer_interior prefix="${prefix}" name="c1_r2_drawer" parent="bc_frame_base_link"
-                           xyz="${(bc_frame_xdim-c1_r1_drawer_interior_xdim)/2} ${(-bc_frame_ydim+bc_column_ydim)/2}
+                           xyz="${(bc_frame_xdim-thickness)/2} ${(-bc_frame_ydim+bc_column_ydim)/2}
                                 ${bc_base_zdim+0.12+c1_r2_drawer_interior_zdim/2}"
                            xdim="${c1_r2_drawer_interior_xdim}" ydim="${c1_r2_drawer_interior_ydim}"
                            zdim="${c1_r2_drawer_interior_zdim}" has_front_panel="true"/>

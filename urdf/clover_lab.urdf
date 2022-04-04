@@ -342,7 +342,7 @@
   <joint name="base_cabinet_c1_r1_drawer_front_panel_joint" type="prismatic">
     <parent link="bc_frame_base_link"/>
     <child link="base_cabinet_c1_r1_drawer_front_panel"/>
-    <origin xyz="0.02899999999999997 -0.7                                 0.5800000000000001"/>
+    <origin xyz="0.292 -0.7                                 0.5800000000000001"/>
     <limit effort="10" lower="0" upper="0.542" velocity="1"/>
     <axis xyz="1 0 0"/>
   </joint>
@@ -394,7 +394,7 @@
   <joint name="base_cabinet_c1_r2_drawer_front_panel_joint" type="prismatic">
     <parent link="bc_frame_base_link"/>
     <child link="base_cabinet_c1_r2_drawer_front_panel"/>
-    <origin xyz="0.02899999999999997 -0.7                                 0.33999999999999997"/>
+    <origin xyz="0.292 -0.7                                 0.33999999999999997"/>
     <limit effort="10" lower="0" upper="0.542" velocity="1"/>
     <axis xyz="1 0 0"/>
   </joint>

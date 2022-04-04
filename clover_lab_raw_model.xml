@@ -31,13 +31,13 @@
             <geom size="0.008 0.198 0.398" pos="0 0.198 0" type="box" rgba="0.89 0.81 0.69 1" />
             <geom pos="0.008 0.35 0.28" quat="0.707107 0.707107 0 0" type="mesh" rgba="0.3 0.3 0.3 1" mesh="handle" />
         </body>
-        <body name="base_cabinet_c1_r1_drawer_front_panel" pos="-2.671 -0.5 0.64">
+        <body name="base_cabinet_c1_r1_drawer_front_panel" pos="-2.408 -0.5 0.64">
             <inertial pos="-0.1315 0 -0.011" quat="0 0.689473 0 0.724311" mass="10" diaginertia="0.398227 0.298248 0.104187" />
             <joint name="base_cabinet_c1_r1_drawer_front_panel_joint" pos="0 0 0" axis="1 0 0" type="slide" limited="true" range="0 0.542" />
             <geom size="0.008 0.175 0.03" type="box" rgba="0.9 0.9 0.9 1" />
             <geom size="0.271 0.175 0.008" pos="-0.263 0 -0.022" type="box" rgba="0.9 0.9 0.9 1" />
         </body>
-        <body name="base_cabinet_c1_r2_drawer_front_panel" pos="-2.671 -0.5 0.4">
+        <body name="base_cabinet_c1_r2_drawer_front_panel" pos="-2.408 -0.5 0.4">
             <inertial pos="-0.206643 0 -0.0328571" quat="0 0.690417 0 0.723412" mass="14" diaginertia="0.79076 0.668541 0.234422" />
             <joint name="base_cabinet_c1_r2_drawer_front_panel_joint" pos="0 0 0" axis="1 0 0" type="slide" limited="true" range="0 0.542" />
             <geom size="0.008 0.175 0.1" type="box" rgba="0.9 0.9 0.9 1" />
