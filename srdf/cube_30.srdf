@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot name="cube_30">
-  <handle name="cube_30_handle1" clearance="0">
+  <handle name="cube_30_handle1" clearance="0.015">
     <position>0 0 0 1 0 0 0</position>
     <link name="base_link"/>
   </handle>
